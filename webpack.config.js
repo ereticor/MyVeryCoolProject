@@ -39,10 +39,6 @@ module.exports = ({development}) => ({
         type: 'asset/resource',
       },
       {
-        test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader']
-      },
-      {
         test: /\.s[ac]ss$/i,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
       }
@@ -51,9 +47,9 @@ module.exports = ({development}) => ({
   plugins: [
     ...eslintPlugin(development),
     new HtmlWebpackPlugin({
-      title: 'cool project',
+      title: 'Platform',
       template: 'src/index.html',
-      favicon: './favicon.ico'
+      favicon: 'public/favicon.ico'
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css'
@@ -68,7 +64,14 @@ module.exports = ({development}) => ({
     }),
   ],
   resolve: {
-    extensions: ['.ts', '.js', '.tsx', '.jsx']
+    extensions: ['.ts', '.js', '.tsx', '.jsx'],
+    alias: {
+      '@pages': path.resolve(__dirname, 'src/pages/'),
+      '@components': path.resolve(__dirname, 'src/components/'),
+      '@assets': path.resolve(__dirname, 'src/assets/'),
+      '@styles': path.resolve(__dirname, 'src/styles/'),
+      '@constants': path.resolve(__dirname, 'src/constants/'),
+    }
   },
   ...devServer(development)
 });
