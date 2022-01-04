@@ -66,11 +66,13 @@ module.exports = ({development}) => ({
   resolve: {
     extensions: ['.ts', '.js', '.tsx', '.jsx'],
     alias: {
-      '@pages': path.resolve(__dirname, 'src/pages/'),
-      '@components': path.resolve(__dirname, 'src/components/'),
-      '@assets': path.resolve(__dirname, 'src/assets/'),
-      '@styles': path.resolve(__dirname, 'src/styles/'),
-      '@constants': path.resolve(__dirname, 'src/constants/'),
+      'pages': path.resolve(__dirname, 'src/pages/'),
+      'components': path.resolve(__dirname, 'src/components/'),
+      'assets': path.resolve(__dirname, 'src/assets/'),
+      'styles': path.resolve(__dirname, 'src/styles/'),
+      'constants': path.resolve(__dirname, 'src/constants/'),
+      'interfaces': path.resolve(__dirname, 'src/interfaces/'),
+      'router': path.resolve(__dirname, 'src/router/'),
     }
   },
   ...devServer(development)
