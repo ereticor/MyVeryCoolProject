@@ -1,0 +1,7 @@
+/.git
+/.dist
+/.vscode
+
+node_modules
+
+webpack.config.js
