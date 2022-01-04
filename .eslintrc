@@ -12,6 +12,9 @@
       "node": {
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
+    },
+    "react": {
+      "version": "latest"
     }
   },
   "extends": [
@@ -37,6 +40,9 @@
     "import"
   ],
   "rules": {
+    "prettier/prettier": ["error",{
+      "endOfLine": "auto"}
+    ],
     "react/react-in-jsx-scope": "off",
     "no-plusplus": "off",
     "no-console": "warn",
