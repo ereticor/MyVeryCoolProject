@@ -1,5 +1,10 @@
+import Router from "router";
+
+import "normalize.css";
+import "styles/basic.sass";
+
 const App = () => {
-  return <div>Hello World!</div>;
+  return <Router />;
 };
 
 export default App;
