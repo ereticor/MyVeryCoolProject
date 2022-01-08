@@ -1,0 +1,57 @@
+// Colors
+$color-text-primary: #1e2d37;
+$color-text-secondary: #050d1b;
+$color-control-primary: #5b7199;
+$color-white: #fff;
+$color-black: #1b2c4a;
+$color-black-secondary: #1e2d37;
+$color-primary-blue: #2f6fdc;
+$color-secondary-blue: #214d99;
+$color-hover-primary: rgba(47, 111, 220, 0.09);
+$color-hover-secondary: #dbe9ff;
+$color-primary-green: #02ae00;
+$color-secondary-green: #039401;
+$color-primary-red: #e3000f;
+$color-secondary-red: #b0000c;
+$color-border-primary: #d9e3f4;
+$color-border-light: rgba(0, 0, 0, 0.12);
+$color-border-light-grey: #ebebef;
+$color-border-grey: #f1f2f3;
+$color-border-dark-grey: rgba(131, 134, 157, 0.3);
+$color-text-grey: #83869d;
+$color-text-grey-secondary: #40414d;
+$color-bg-primary: #f8faff;
+$color-bg-secondary: #fafafa;
+$color-bg-global: #f5f6fa;
+
+$color-status-blue: #3694ff;
+$color-status-dark-blue: #6a68ff;
+$color-status-turquoise: #02cad7;
+$color-status-green: #02ae00;
+$color-status-orange: #f08802;
+$color-status-grey: #7b91b8;
+
+//shadow
+$color-page-shadow: 0px 1px 1px rgba(0, 0, 0, 0.14),
+  0px 2px 1px rgba(0, 0, 0, 0.12), 0px 1px 3px rgba(0, 0, 0, 0.2);
+
+// Sizes
+$font-size-basic: 16px;
+$height-app-header: 70px;
+$height-page-header: 50px;
+$height-table-pagination: 52px;
+$width-app-sidebar-full: 256px;
+$width-app-sidebar-short: 68px;
+$width-form-field: 320px;
+$margin-header: 12px;
+$width-side-bar: 256px;
+$card-min-height: 300px;
+$table-height: calc(
+  100vh - #{$height-app-header} - #{$margin-header} - #{$height-page-header} - #{$height-table-pagination} -
+    25px
+);
+
+//Screen breakpoints
+$mobile-width: 320px;
+$tablet-width: 768px;
+$desktop-width: 1200px;

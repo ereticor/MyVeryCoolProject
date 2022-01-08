@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import { IAppCard } from "interfaces/app";
 
-import "./AppCard.sass";
+import "./AppCard.scss";
 
 const AppCard = ({ app, className }: { app: IAppCard; className: string }) => {
   const { name, description, keywords } = app;

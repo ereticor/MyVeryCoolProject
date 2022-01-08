@@ -4,7 +4,7 @@ import UserHead from "components/UserHead";
 
 import user from "constants/user";
 
-import "./Header.sass";
+import "./Header.scss";
 
 const Header = () => {
   return (

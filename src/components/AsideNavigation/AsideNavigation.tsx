@@ -4,7 +4,7 @@ import { StyledAside } from "./style";
 import { IAppList } from "interfaces/app";
 import { Link } from "react-router-dom";
 
-import "./AsideNavigation.sass";
+import "./AsideNavigation.scss";
 
 const AsideNavigation = ({ appList }: { appList: IAppList }) => {
   return (

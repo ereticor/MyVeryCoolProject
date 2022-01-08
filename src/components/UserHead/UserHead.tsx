@@ -6,7 +6,7 @@ import IUser from "interfaces/User";
 
 import defaultAvatar from "assets/icons/userDefault.svg";
 
-import "./UserHead.sass";
+import "./UserHead.scss";
 
 const UserHead = ({ user }: { user: IUser }) => {
   const [isShowedModal, setIsShowModal] = useState(false);
