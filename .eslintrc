@@ -33,23 +33,27 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": [
-    "@typescript-eslint",
-    "prettier",
-    "react",
-    "import"
-  ],
+  "plugins": ["@typescript-eslint", "prettier", "react", "import"],
   "rules": {
-    "prettier/prettier": ["error",{
-      "endOfLine": "auto"}
+    "@typescript-eslint/lines-between-class-members": "off",
+    "import/no-extraneous-dependencies": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
     ],
     "react/react-in-jsx-scope": "off",
     "no-plusplus": "off",
     "no-console": "warn",
     "max-len": ["warn", { "code": 120 }],
-    "indent": ["warn", 2, {
-      "SwitchCase": 1
-    }],
+    "indent": [
+      "warn",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -60,12 +64,19 @@
         "tsx": "never"
       }
     ],
-    "@typescript-eslint/indent": ["warn", 2, {
-      "SwitchCase": 1
-    }],
+    "@typescript-eslint/indent": [
+      "warn",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
     "import/prefer-default-export": "off",
-    "no-param-reassign": ["error", {
-      "props": false
-    }]
+    "no-param-reassign": [
+      "error",
+      {
+        "props": false
+      }
+    ]
   }
 }
