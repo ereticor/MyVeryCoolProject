@@ -3,9 +3,9 @@ import UserHead from "components/UserHead";
 
 import user from "constants/user";
 
-import "./Header.scss";
+import "./AppHeader.scss";
 
-const Header = () => {
+const AppHeader = () => {
   return (
     <header className="header">
       <div className="header__wrapper">
@@ -16,4 +16,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default AppHeader;
