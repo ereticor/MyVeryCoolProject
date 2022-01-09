@@ -1,5 +1,4 @@
-// import { SwipeableDrawer } from "@material-ui/core";
-import HeaderLogo from "components/CompanyLogo";
+import AppLogo from "components/AppLogo";
 import UserHead from "components/UserHead";
 
 import user from "constants/user";
@@ -10,7 +9,7 @@ const Header = () => {
   return (
     <header className="header">
       <div className="header__wrapper">
-        <HeaderLogo />
+        <AppLogo />
         <UserHead user={user} />
       </div>
     </header>
