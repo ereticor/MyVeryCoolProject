@@ -1,7 +1,6 @@
 import Router from "router";
 
-import "normalize.css";
-import "styles/basic.scss";
+import "styles/index.scss";
 
 const App = () => {
   return <Router />;
