@@ -75,6 +75,8 @@ module.exports = ({ development }) => ({
       constants: path.resolve(__dirname, "src/constants/"),
       interfaces: path.resolve(__dirname, "src/interfaces/"),
       router: path.resolve(__dirname, "src/router/"),
+      reducers: path.resolve(__dirname, "src/reducers/"),
+      store: path.resolve(__dirname, "src/store/"),
     },
   },
   ...devServer(development),
