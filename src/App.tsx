@@ -3,8 +3,7 @@ import { Provider } from "react-redux";
 import Router from "router";
 import store from "store";
 
-import "normalize.css";
-import "styles/basic.sass";
+import "styles/index.scss";
 
 const App = () => {
   return (

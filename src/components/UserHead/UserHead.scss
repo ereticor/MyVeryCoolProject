@@ -1,0 +1,43 @@
+@import "styles/variables";
+
+.user__profile {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  height: 36px;
+  cursor: pointer;
+
+  .user__avatar {
+    height: 100%;
+    aspect-ratio: 1;
+    background: $color-bg-primary;
+    mix-blend-mode: normal;
+    border-radius: 10px;
+
+    &.default {
+      border: 1px dashed $color-border-dark-grey;
+    }
+  }
+
+  .user__info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-transform: capitalize;
+
+    .user__name {
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 16px;
+      color: $color-text-primary;
+    }
+
+    .user__role {
+      font-size: 12px;
+      line-height: 14px;
+      color: $color-text-primary;
+      mix-blend-mode: normal;
+      opacity: 0.28;
+    }
+  }
+}

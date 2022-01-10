@@ -2,7 +2,7 @@ import AppCard from "components/AppCard";
 
 import { IAppList } from "interfaces/app";
 
-import "./Home.sass";
+import "./Home.scss";
 
 const Home = ({ appList }: { appList: IAppList }) => {
   return (

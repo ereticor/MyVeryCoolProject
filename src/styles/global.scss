@@ -1,0 +1,24 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: Roboto, sans-serif;
+}
+
+html {
+  font-size: $font-size-basic;
+}
+
+body {
+  background: $color-bg-global;
+}
+
+a {
+  text-decoration: none;
+}
+
+.main {
+  padding: 10px 16px;
+  margin-top: $height-app-header;
+  margin-left: max(150px, 18%);
+}

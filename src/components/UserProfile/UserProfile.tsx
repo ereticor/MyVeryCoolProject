@@ -5,7 +5,7 @@ import IUser from "interfaces/User";
 
 import defaultAvatar from "assets/icons/userDefault.svg";
 
-import "./UserProfile.sass";
+import "./UserProfile.scss";
 
 const UserProfile = ({
   user,

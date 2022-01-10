@@ -1,20 +1,19 @@
-// import { SwipeableDrawer } from "@material-ui/core";
-import HeaderLogo from "components/CompanyLogo";
+import AppLogo from "components/AppLogo";
 import UserHead from "components/UserHead";
 
 import user from "constants/user";
 
-import "./Header.sass";
+import "./AppHeader.scss";
 
-const Header = () => {
+const AppHeader = () => {
   return (
     <header className="header">
       <div className="header__wrapper">
-        <HeaderLogo />
+        <AppLogo />
         <UserHead user={user} />
       </div>
     </header>
   );
 };
 
-export default Header;
+export default AppHeader;
