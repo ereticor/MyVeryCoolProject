@@ -1,0 +1,67 @@
+@import "styles/variables";
+
+.head__profile {
+  padding: 20px;
+
+  .profile__title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid $color-border-light;
+    margin-bottom: 30px;
+    font-size: 30px;
+  }
+
+  .profile__figure {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+
+    &::before {
+      position: absolute;
+      bottom: 20%;
+      left: 0;
+      content: "";
+      width: 100%;
+      height: 1px;
+      background: $color-border-light;
+      z-index: -1;
+    }
+
+    .figure__img {
+      width: 70px;
+      padding: 2px;
+      border-radius: 50%;
+      border: 1px solid $color-border-light;
+      background-color: $color-bg-primary;
+    }
+
+    .figure__cap {
+      font-size: 30px;
+    }
+  }
+
+  .profile__info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+
+    .profile__field {
+      display: flex;
+      justify-content: space-between;
+      font-size: 18px;
+
+      .field__item {
+        color: $color-text-primary;
+      }
+
+      .field__value {
+        color: $color-text-secondary;
+      }
+    }
+  }
+}

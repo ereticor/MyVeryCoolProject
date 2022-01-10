@@ -1,5 +1,9 @@
+import Router from "router";
+
+import "styles/index.scss";
+
 const App = () => {
-  return <div>Hello World!</div>;
+  return <Router />;
 };
 
 export default App;
