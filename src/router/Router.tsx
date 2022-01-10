@@ -5,6 +5,7 @@ import Header from "components/Header";
 import AsideNavigation from "components/AsideNavigation";
 
 import Home from "pages/Home";
+import CustomerManagement from "modules/customerManagement";
 
 import appList from "constants/appList";
 
@@ -15,6 +16,7 @@ const Router = () => {
       <main className="main">
         <BrowserRouter>
           <Routes>
+            <Route path="/customer" element={<CustomerManagement />} />
             <Route path="/" element={<Home appList={appList} />} />
             <Route path="*" element={<div>Lorem ipsum dolor sit amet.</div>} />
           </Routes>
