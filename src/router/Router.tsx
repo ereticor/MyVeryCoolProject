@@ -16,6 +16,7 @@ const Router = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home appList={appList} />} />
+            <Route path="*" element={<div>Lorem ipsum dolor sit amet.</div>} />
           </Routes>
           <AsideNavigation appList={appList} />
         </BrowserRouter>
