@@ -18,6 +18,8 @@ a {
 }
 
 .main {
+  overflow-y: scroll;
+  height: calc(100vh - 70px);
   padding: 10px 16px;
   margin-top: $height-app-header;
   margin-left: max(150px, 18%);
