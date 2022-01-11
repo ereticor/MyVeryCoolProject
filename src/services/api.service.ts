@@ -76,6 +76,7 @@ export default class ApiService {
   }
   static redirectToErrorPage(message: string | Error) {
     history.push(`/error#${message}`);
+    history.go(0);
   }
   static createSearchParams(paramObj: {
     [key: string]: string | number | boolean;
