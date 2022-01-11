@@ -3,8 +3,10 @@
 //   headers?: Headers;
 // }
 
+import capitalizeString from "helpers/capitalizeString";
+
 export interface IRequest {
-  api: "customer" | "";
+  api: "customer" | string;
   options: RequestInit;
 }
 
@@ -16,7 +18,7 @@ export default class ApiService {
     }),
   };
 
-  static baseUrl = "https://fuchs-rmt-api-dev.azurewebsites.net/api/";
+  static baseUrl = "https://fuchs-platform-api-dev.azurewebsites.net/api/";
 
   static async request({ api, options }: IRequest) {
     try {
@@ -39,5 +41,20 @@ export default class ApiService {
   }
   static async delete({ api, options }: IRequest) {
     return this.request({ api, options: { ...options, method: "DELETE" } });
+  }
+  static createSearchParams(paramObj: {
+    [key: string]: string | number | boolean;
+  }) {
+    const result = [];
+    for (const param in paramObj) {
+      if (paramObj[param] !== "") {
+        result.push(
+          encodeURIComponent(capitalizeString(param)) +
+            "=" +
+            encodeURIComponent(paramObj[param])
+        );
+      }
+    }
+    return result.join("&");
   }
 }
