@@ -1,0 +1,29 @@
+@import "styles/variables";
+
+.customers {
+  border-radius: 4px;
+  background: $color-white;
+  box-shadow: $color-page-shadow;
+
+  .customers__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    border-bottom: 1px solid $color-border-dark-grey;
+
+    .customers__title {
+      font-size: 16px;
+      line-height: 19px;
+      text-transform: uppercase;
+      color: $color-text-primary;
+      mix-blend-mode: normal;
+      opacity: 0.87;
+    }
+
+    .customers__controls {
+      display: flex;
+      gap: 10px;
+    }
+  }
+}
