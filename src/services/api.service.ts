@@ -3,7 +3,9 @@
 //   headers?: Headers;
 // }
 
+import reqErrors from "constants/reqErrors";
 import capitalizeString from "helpers/capitalizeString";
+import history from "store/history";
 
 export interface IRequest {
   api: "customer" | string;
@@ -22,14 +24,44 @@ export default class ApiService {
 
   static async request({ api, options }: IRequest) {
     try {
-      const promise = await fetch(this.baseUrl + api, {
+      const response = await fetch(this.baseUrl + api, {
         ...this.basicOptions,
         ...options,
       });
-      const response = await promise.json();
-      return response;
-    } catch (e) {
-      console.error(e);
+
+      if (!response.ok) {
+        throw response.status;
+      }
+
+      const result = await response.json();
+      return result;
+    } catch (err: number | unknown) {
+      if (typeof err === "number") {
+        switch (err) {
+          case 401:
+            window.location.reload();
+            break;
+          case 403:
+            this.redirectToErrorPage(reqErrors.ACCESS_FORBIDDEN);
+            break;
+          case 404:
+            this.redirectToErrorPage(reqErrors.NOT_FOUND);
+            break;
+          case 500:
+          case 501:
+          case 502:
+          case 503:
+          case 504:
+          case 505:
+            this.redirectToErrorPage(reqErrors.SERVER_TROUBLE);
+            break;
+          default:
+            this.redirectToErrorPage(reqErrors.UNEXPECTED + err);
+            break;
+        }
+      } else {
+        this.redirectToErrorPage(String(err));
+      }
     }
   }
 
@@ -41,6 +73,9 @@ export default class ApiService {
   }
   static async delete({ api, options }: IRequest) {
     return this.request({ api, options: { ...options, method: "DELETE" } });
+  }
+  static redirectToErrorPage(message: string | Error) {
+    history.push(`/error#${message}`);
   }
   static createSearchParams(paramObj: {
     [key: string]: string | number | boolean;
