@@ -1,0 +1,17 @@
+@import "styles/variables";
+
+.progress__shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: $color-border-light;
+
+  .progress__spinner {
+    color: $color-primary-blue;
+  }
+}
