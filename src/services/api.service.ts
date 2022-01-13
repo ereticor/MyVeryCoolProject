@@ -1,22 +1,24 @@
-// interface IApiService {
-//   baseUrl?: string;
-//   headers?: Headers;
-// }
-
 import reqErrors from "constants/reqErrors";
 import capitalizeString from "helpers/capitalizeString";
 import history from "store/history";
 
+import accessToken from "constants/accessToken";
+
 export interface IRequest {
   api: "customer" | string;
   options: RequestInit;
+  body?: BodyInit | string | Record<string, unknown>;
+}
+
+export interface IPostRequest extends IRequest {
+  body: BodyInit | string | Record<string, unknown>;
 }
 
 export default class ApiService {
   static basicOptions = {
     headers: new Headers({
       "Content-type": "application/json",
-      authorization: `Bearer ${"access token"}`,
+      authorization: `Bearer ${accessToken}`,
     }),
   };
 
@@ -30,14 +32,16 @@ export default class ApiService {
       });
 
       if (!response.ok) {
-        throw response.status;
+        throw response;
       }
 
       const result = await response.json();
       return result;
     } catch (err: number | unknown) {
-      if (typeof err === "number") {
-        switch (err) {
+      if (err instanceof Response) {
+        switch (err.status) {
+          case 400:
+            return err;
           case 401:
             window.location.reload();
             break;
@@ -59,8 +63,6 @@ export default class ApiService {
             this.redirectToErrorPage(reqErrors.UNEXPECTED + err);
             break;
         }
-      } else {
-        this.redirectToErrorPage(String(err));
       }
     }
   }
@@ -68,16 +70,32 @@ export default class ApiService {
   static async get({ api, options }: IRequest) {
     return this.request({ api, options: { ...options, method: "GET" } });
   }
-  static async post({ api, options }: IRequest) {
-    return this.request({ api, options: { ...options, method: "POST" } });
+
+  static async post({ api, options, body }: IPostRequest) {
+    const jsonBody = JSON.stringify(body);
+    return this.request({
+      api,
+      options: { ...options, body: jsonBody, method: "POST" },
+    });
   }
+
+  static async put({ api, options, body }: IPostRequest) {
+    const jsonBody = JSON.stringify(body);
+    return this.request({
+      api,
+      options: { ...options, body: jsonBody, method: "PUT" },
+    });
+  }
+
   static async delete({ api, options }: IRequest) {
     return this.request({ api, options: { ...options, method: "DELETE" } });
   }
+
   static redirectToErrorPage(message: string | Error) {
     history.push(`/error#${message}`);
     history.go(0);
   }
+
   static createSearchParams(paramObj: {
     [key: string]: string | number | boolean;
   }) {

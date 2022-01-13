@@ -79,6 +79,7 @@ module.exports = ({ development }) => ({
       store: path.resolve(__dirname, "src/store/"),
       modules: path.resolve(__dirname, "src/modules/"),
       helpers: path.resolve(__dirname, "src/helpers/"),
+      services: path.resolve(__dirname, "src/services/"),
     },
   },
   ...devServer(development),
