@@ -1,0 +1,27 @@
+@import "styles/variables";
+
+.module__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  border-bottom: 1px solid $color-border-dark-grey;
+  background: inherit;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+
+  .module__nav {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .module__title {
+    font-size: 16px;
+    line-height: 19px;
+    text-transform: uppercase;
+    color: $color-text-primary;
+    mix-blend-mode: normal;
+    opacity: 0.87;
+  }
+}
