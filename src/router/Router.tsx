@@ -6,8 +6,6 @@ import history from "store/history";
 import AppHeader from "components/AppHeader";
 import AsideNavigation from "components/AsideNavigation";
 
-import history from "store/history";
-
 import Home from "pages/Home";
 import ErrorPage from "pages/ErrorPage";
 import TestPage from "pages/TestPage";
@@ -15,7 +13,7 @@ import CustomerTable from "modules/customerManagement/CustomerTable";
 import CustomerEdit from "modules/customerManagement/CustomerEdit";
 
 import appList from "constants/appList";
-import TestPage from "pages/TestPage";
+import CustomerDetails from "modules/customerManagement/CustomerDetails";
 
 const Router = () => {
   return (
@@ -32,6 +30,7 @@ const Router = () => {
               path="/customer/:customerId/edit"
               element={<CustomerEdit mode={"edit"} />}
             />
+            <Route path="/customer/:customerId" element={<CustomerDetails />} />
             <Route path="/customer/" element={<CustomerTable />} />
             <Route
               path="/error"
