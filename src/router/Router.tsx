@@ -24,7 +24,14 @@ const Router = () => {
       <main className="main">
         <BrowserRouter>
           <Routes>
-            <Route path="/customer/new" element={<CustomerEdit />} />
+            <Route
+              path="/customer/new"
+              element={<CustomerEdit mode={"new"} />}
+            />
+            <Route
+              path="/customer/:customerId/edit"
+              element={<CustomerEdit mode={"edit"} />}
+            />
             <Route path="/customer/" element={<CustomerTable />} />
             <Route
               path="/error"

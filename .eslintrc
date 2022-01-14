@@ -51,7 +51,14 @@
     "no-console": "warn",
     "max-len": ["warn", { "code": 120 }],
     "indent": [
-      "warn",
+      "off",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "@typescript-eslint/indent": [
+      "off",
       2,
       {
         "SwitchCase": 1
@@ -65,13 +72,6 @@
         "jsx": "never",
         "ts": "never",
         "tsx": "never"
-      }
-    ],
-    "@typescript-eslint/indent": [
-      "warn",
-      2,
-      {
-        "SwitchCase": 1
       }
     ],
     "import/prefer-default-export": "off",
