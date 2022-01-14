@@ -36,27 +36,17 @@ const CustomerTable = () => {
     }
     setPage(response.page);
     setCustomerCount(response.totalCount);
-    const filteredList = response.data.map(
-      ({
-        name,
-        id,
-        createdAt,
-        createdByName,
-        lastModifiedAt,
-        lastModifiedByName,
-        sapCode,
-      }: ICustomer) => {
-        return {
-          name,
-          id,
-          createdAt,
-          createdByName,
-          lastModifiedAt,
-          lastModifiedByName,
-          sapCode,
-        };
-      }
-    );
+    const filteredList = response.data.map((customer: ICustomer) => {
+      const propTypes = customerHeaders.map((header) => header.prop);
+      return Object.assign(
+        {},
+        ...Object.entries(customer).map(([key, value]) => {
+          if (propTypes.some((prop) => prop === key)) {
+            return { [key]: value };
+          }
+        })
+      );
+    });
     setCustomerList(filteredList);
     setIsLoadingCustomers(false);
   };
