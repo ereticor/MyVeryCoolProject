@@ -12,6 +12,7 @@ import Home from "pages/Home";
 import ErrorPage from "pages/ErrorPage";
 import TestPage from "pages/TestPage";
 import CustomerTable from "modules/customerManagement/CustomerTable";
+import CustomerEdit from "modules/customerManagement/CustomerEdit";
 
 import appList from "constants/appList";
 import TestPage from "pages/TestPage";
@@ -23,6 +24,7 @@ const Router = () => {
       <main className="main">
         <BrowserRouter>
           <Routes>
+            <Route path="/customer/new" element={<CustomerEdit />} />
             <Route path="/customer/" element={<CustomerTable />} />
             <Route
               path="/error"

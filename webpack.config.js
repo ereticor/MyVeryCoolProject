@@ -28,6 +28,7 @@ module.exports = ({ development }) => ({
   },
   output: {
     path: path.resolve(__dirname, "dist"),
+    publicPath: development ? "http://localhost:3000/" : "",
     filename: "[name].[contenthash].js",
     assetModuleFilename: "assets/[hash][ext]",
   },
@@ -51,6 +52,7 @@ module.exports = ({ development }) => ({
   plugins: [
     ...eslintPlugin(development),
     new HtmlWebpackPlugin({
+      chunks: ["app"],
       title: "Platform",
       template: "src/index.html",
       favicon: "public/favicon.ico",

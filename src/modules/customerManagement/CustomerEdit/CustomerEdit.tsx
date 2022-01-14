@@ -1,17 +1,17 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { TextField, Button } from "@material-ui/core";
 
 import customerDefaultAvatar from "assets/icons/customerDefault.svg";
 
-import { Link } from "react-router-dom";
-
 import CustomerService from "services/customer.service";
 
-import "./CustomerCreate.scss";
 import ProgressSpinner from "components/ProgressSpinner";
 import ModuleHeader from "modules/shared/ModuleHeader";
 
-const CustomerCreate = () => {
+import "./CustomerEdit.scss";
+
+const CustomerEdit = () => {
   const [customerName, setCustomerName] = useState("");
   const [isWaitingResponse, setIsWaitingResponse] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -19,8 +19,10 @@ const CustomerCreate = () => {
   const handleCustomerCreation = async (name: string) => {
     setIsWaitingResponse(true);
     const response = await CustomerService.createCustomer(name);
+    console.log(response);
+    // eslint-disable-next-line no-debugger
     if (response.status > 399) {
-      setErrorMessage(response);
+      setErrorMessage(response.errors.Name[0]);
     } else {
       setErrorMessage("");
     }
@@ -38,7 +40,7 @@ const CustomerCreate = () => {
             required
             label="customer name"
             error={!!errorMessage}
-            helperText={errorMessage ? "some error" : ""}
+            helperText={errorMessage ? errorMessage : ""}
             onChange={(e) => setCustomerName(e.target.value)}
           />
         </div>
@@ -56,4 +58,4 @@ const CustomerCreate = () => {
   );
 };
 
-export default CustomerCreate;
+export default CustomerEdit;

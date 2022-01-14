@@ -32,7 +32,6 @@ const AsideNavigation = ({ appList }: { appList: IAppList }) => {
         {appList.map((app, index) => {
           return (
             <NavLink
-              end
               to={`/${app.pathName}`}
               key={`aside: ${index}`}
               className={({ isActive }) =>

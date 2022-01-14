@@ -1,8 +1,11 @@
 import { IconButton } from "@material-ui/core";
 import { Add, Search } from "@material-ui/icons";
 
+import history from "store/history";
+
 import DataTable from "components/DataTable";
 import ProgressSpinner from "components/ProgressSpinner";
+import customerHeaders from "helpers/getDisplayedValue/definedHeaders/customerHeaders";
 import ICustomer from "interfaces/Customer";
 import ModuleHeader from "modules/shared/ModuleHeader";
 
@@ -11,15 +14,6 @@ import { Link } from "react-router-dom";
 import CustomerService from "services/customer.service";
 
 import "./CustomerTable.scss";
-
-const customerHeaders = [
-  { text: "Name", prop: "name", type: "string" },
-  { text: "created At", prop: "createdAt", type: "dateTime" },
-  { text: "created By", prop: "createdByName", type: "string" },
-  { text: "updated At", prop: "lastModifiedAt", type: "dateTime" },
-  { text: "updated By", prop: "lastModifiedByName", type: "string" },
-  { text: "sap code", prop: "sapCode", type: "number" },
-];
 
 const CustomerTable = () => {
   const [customerList, setCustomerList] = useState(null);
@@ -37,11 +31,15 @@ const CustomerTable = () => {
   }) => {
     setIsLoadingCustomers(true);
     const response = await CustomerService.getPage({ page, pageSize });
+    if (response.status === 401) {
+      return;
+    }
     setPage(response.page);
     setCustomerCount(response.totalCount);
     const filteredList = response.data.map(
       ({
         name,
+        id,
         createdAt,
         createdByName,
         lastModifiedAt,
@@ -50,6 +48,7 @@ const CustomerTable = () => {
       }: ICustomer) => {
         return {
           name,
+          id,
           createdAt,
           createdByName,
           lastModifiedAt,
@@ -102,8 +101,9 @@ const CustomerTable = () => {
           dataCount={customerCount}
           handlePageChange={handlePageChange}
           handlePageSizeChange={handlePageSizeChange}
-          handleRowClick={() => {
-            console.log("x");
+          handleRowClick={(customerId) => {
+            history.push(`/customer/${customerId}`);
+            history.go(0);
           }}
         />
       ) : null}

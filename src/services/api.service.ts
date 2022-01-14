@@ -41,9 +41,9 @@ export default class ApiService {
       if (err instanceof Response) {
         switch (err.status) {
           case 400:
-            return err;
+            return err.json();
           case 401:
-            window.location.reload();
+            // window.location.reload();
             break;
           case 403:
             this.redirectToErrorPage(reqErrors.ACCESS_FORBIDDEN);

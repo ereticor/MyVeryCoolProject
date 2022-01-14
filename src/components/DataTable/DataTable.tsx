@@ -23,7 +23,7 @@ interface IDataTable {
   dataCount: number;
   handlePageChange: (newPage: number) => void;
   handlePageSizeChange: (newSize: number) => void;
-  handleRowClick?: () => void;
+  handleRowClick?: (id: number | string) => void;
 }
 
 const DataTable = ({
@@ -52,7 +52,7 @@ const DataTable = ({
           <TableRow
             key={`row: ${"" + data.id + rowIndex || rowIndex}`}
             className="table__row"
-            onClick={handleRowClick}
+            onClick={() => (handleRowClick ? handleRowClick(data.id) : false)}
           >
             {tableHeaders.map((header, cellIndex) => (
               <TableCell key={`cell: ${"" + data.id + cellIndex || cellIndex}`}>
