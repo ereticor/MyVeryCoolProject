@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Table,
   TableHead,
@@ -9,75 +8,96 @@ import {
   TableFooter,
 } from "@material-ui/core";
 
-import IUser from "interfaces/User";
-
 import capitalizeString from "helpers/capitalizeString";
 
 import "./DataTable.scss";
 
-type Data = IUser;
-
-interface IDataTable {
-  dataArr: Array<Data>;
+interface IData {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
 }
 
-const DataTable = ({ dataArr }: IDataTable) => {
-  const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+interface ITableHeader {
+  text: string;
+  prop: string;
+  type: string;
+}
 
-  const handlePageChange = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
-    newPage: number
-  ) => {
-    setPage(newPage);
+interface IDataTable {
+  tableData: Array<IData>;
+  tableHeaders: Array<ITableHeader>;
+  page: number;
+  pageSize: number;
+  dataCount: number;
+  handlePageChange: (newPage: number) => void;
+  handlePageSizeChange: (newSize: number) => void;
+  handleRowClick?: () => void;
+}
+
+const DataTable = ({
+  tableData,
+  tableHeaders,
+  page,
+  pageSize,
+  dataCount,
+  handlePageChange,
+  handlePageSizeChange,
+  handleRowClick,
+}: IDataTable) => {
+  const getDisplayedValue = ({
+    data,
+    header,
+  }: {
+    data: IData;
+    header: ITableHeader;
+  }) => {
+    switch (header.type) {
+      case "dateTime": {
+        return new Date(data[header.prop]).toLocaleString();
+      }
+      case "boolean": {
+        return data[header.prop] ? "yes" : "no";
+      }
+      default: {
+        return data[header.prop] || "-";
+      }
+    }
   };
-
-  const handleRowsPerPageChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-
-  const headers = Object.keys(dataArr[0]) as Array<keyof Data>;
 
   return (
     <Table>
       <TableHead>
         <TableRow>
-          {headers.map((header) => (
-            <TableCell key={`header: ${header}`}>
-              {capitalizeString(header)}
+          {tableHeaders.map((header) => (
+            <TableCell key={`header: ${header.prop}`}>
+              {capitalizeString(`${header.text}`)}
             </TableCell>
           ))}
         </TableRow>
       </TableHead>
       <TableBody>
-        {dataArr
-          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-          .map((data, rowIndex) => (
-            <TableRow
-              key={`row: ${data.id + String(rowIndex) || rowIndex}`}
-              className="table__row"
-            >
-              {headers.map((header, cellIndex) => (
-                <TableCell
-                  key={`cell: ${data.id + String(cellIndex) || cellIndex}`}
-                >
-                  {data[header] || "-"}
-                </TableCell>
-              ))}
-            </TableRow>
-          ))}
+        {tableData.map((data, rowIndex) => (
+          <TableRow
+            key={`row: ${"" + data.id + rowIndex || rowIndex}`}
+            className="table__row"
+            onClick={handleRowClick}
+          >
+            {tableHeaders.map((header, cellIndex) => (
+              <TableCell key={`cell: ${"" + data.id + cellIndex || cellIndex}`}>
+                {getDisplayedValue({ data, header })}
+              </TableCell>
+            ))}
+          </TableRow>
+        ))}
       </TableBody>
       <TableFooter>
         <TablePagination
           rowsPerPageOptions={[10, 20, 30]}
-          rowsPerPage={rowsPerPage}
-          onRowsPerPageChange={handleRowsPerPageChange}
-          page={page}
-          onPageChange={handlePageChange}
-          count={dataArr.length}
+          rowsPerPage={pageSize}
+          onRowsPerPageChange={(e) => handlePageSizeChange(+e.target.value)}
+          page={page - 1}
+          onPageChange={(e, newPage) => handlePageChange(newPage + 1)}
+          count={dataCount}
         />
       </TableFooter>
     </Table>

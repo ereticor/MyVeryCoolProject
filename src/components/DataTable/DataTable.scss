@@ -1,6 +1,8 @@
 @import "styles/variables";
 
 .table__row {
+  cursor: pointer;
+
   &:nth-of-type(2n) {
     &:hover {
       background: $color-border-dark-grey;

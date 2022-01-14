@@ -4,8 +4,8 @@ export default interface ICustomer {
   status: { value: number; description: string };
   createdAt: string;
   createdByName: string;
-  updatedAt: string;
-  updatedByName: string;
+  lastModifiedAt: string;
+  lastModifiedByName: string;
   sapCode: number | null;
   [key: string]: string | number | null | Record<string, unknown>;
 }
