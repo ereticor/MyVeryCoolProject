@@ -37,7 +37,6 @@ const CustomerTable = () => {
   }) => {
     setIsLoadingCustomers(true);
     const response = await CustomerService.getPage({ page, pageSize });
-    console.log(response);
     setPage(response.page);
     setCustomerCount(response.totalCount);
     const filteredList = response.data.map(
@@ -78,7 +77,7 @@ const CustomerTable = () => {
 
   useEffect(() => {
     fetchCustomerList({ page, pageSize });
-  }, [page]);
+  }, [page, pageSize]);
 
   return (
     <div className="customers">

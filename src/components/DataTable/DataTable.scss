@@ -1,5 +1,11 @@
 @import "styles/variables";
 
+.table__head {
+  .head__cell {
+    text-transform: capitalize;
+  }
+}
+
 .table__row {
   cursor: pointer;
 

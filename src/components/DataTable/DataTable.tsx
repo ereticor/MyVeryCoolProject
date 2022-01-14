@@ -8,23 +8,15 @@ import {
   TableFooter,
 } from "@material-ui/core";
 
-import capitalizeString from "helpers/capitalizeString";
+import getDisplayedValue from "helpers/getDisplayedValue";
+
+import IAnyDataObject from "interfaces/anyDataObject";
+import ITableHeader from "interfaces/tableHeader";
 
 import "./DataTable.scss";
 
-interface IData {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any;
-}
-
-interface ITableHeader {
-  text: string;
-  prop: string;
-  type: string;
-}
-
 interface IDataTable {
-  tableData: Array<IData>;
+  tableData: Array<IAnyDataObject>;
   tableHeaders: Array<ITableHeader>;
   page: number;
   pageSize: number;
@@ -44,33 +36,13 @@ const DataTable = ({
   handlePageSizeChange,
   handleRowClick,
 }: IDataTable) => {
-  const getDisplayedValue = ({
-    data,
-    header,
-  }: {
-    data: IData;
-    header: ITableHeader;
-  }) => {
-    switch (header.type) {
-      case "dateTime": {
-        return new Date(data[header.prop]).toLocaleString();
-      }
-      case "boolean": {
-        return data[header.prop] ? "yes" : "no";
-      }
-      default: {
-        return data[header.prop] || "-";
-      }
-    }
-  };
-
   return (
     <Table>
-      <TableHead>
+      <TableHead className="table__head">
         <TableRow>
           {tableHeaders.map((header) => (
-            <TableCell key={`header: ${header.prop}`}>
-              {capitalizeString(`${header.text}`)}
+            <TableCell key={`header: ${header.prop}`} className="head__cell">
+              {header.text}
             </TableCell>
           ))}
         </TableRow>
