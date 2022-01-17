@@ -15,7 +15,6 @@ const AsideNavigation = ({ appList }: { appList: IAppList }) => {
       }}
       anchor={"left"}
       open={true}
-      hideBackdrop={true}
       className="main__aside"
     >
       <nav className="aside__nav">
