@@ -18,9 +18,9 @@ import CustomerDetails from "modules/customerManagement/CustomerDetails";
 const Router = () => {
   return (
     <Suspense fallback={<div className="loading">Loading</div>}>
-      <AppHeader />
-      <main className="main">
-        <BrowserRouter>
+      <BrowserRouter>
+        <AppHeader />
+        <main className="main">
           <Routes>
             <Route
               path="/customer/new"
@@ -41,8 +41,8 @@ const Router = () => {
             <Route path="*" element={<div>Lorem ipsum dolor sit amet.</div>} />
           </Routes>
           <AsideNavigation appList={appList} />
-        </BrowserRouter>
-      </main>
+        </main>
+      </BrowserRouter>
     </Suspense>
   );
 };
