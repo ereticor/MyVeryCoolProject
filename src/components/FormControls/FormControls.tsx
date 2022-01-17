@@ -7,26 +7,31 @@ interface IFormControls {
   cancelValue?: unknown;
   cancelHandler?: (value: unknown) => void | Promise<void>;
   cancelBtnText?: string;
+  cancelBtnClass?: "submit" | "delete" | "edit" | "cancel" | "save";
   cancelLink?: string;
-  submitBtnText?: string;
-  submitLink?: string;
   submitValue?: unknown;
   submitHandler?: (value: unknown) => void | Promise<void>;
+  submitBtnText?: string;
+  submitBtnClass?: "submit" | "delete" | "edit" | "cancel" | "save";
+  submitLink?: string;
 }
 
 const FormControls = ({
   cancelValue,
   cancelHandler,
   cancelBtnText,
+  cancelBtnClass,
   cancelLink,
   submitValue,
   submitHandler,
   submitBtnText,
+  submitBtnClass,
   submitLink,
 }: IFormControls) => {
   return (
     <div className="form__controls">
       <Button
+        className={cancelBtnClass || "cancel"}
         onClick={() => (cancelHandler ? cancelHandler(cancelValue) : false)}
       >
         {cancelLink ? (
@@ -36,6 +41,7 @@ const FormControls = ({
         )}
       </Button>
       <Button
+        className={submitBtnClass || "save"}
         onClick={() => (submitHandler ? submitHandler(submitValue) : false)}
       >
         {submitLink ? (

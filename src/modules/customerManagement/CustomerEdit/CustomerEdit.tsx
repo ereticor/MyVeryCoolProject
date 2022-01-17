@@ -93,7 +93,6 @@ const CustomerEdit = ({ mode }: { mode: "edit" | "new" }) => {
             submitHandler={(value: unknown) =>
               handleCustomerCreation(value as string)
             }
-            submitBtnText="save"
           />
         ) : (
           <FormControls
@@ -102,6 +101,8 @@ const CustomerEdit = ({ mode }: { mode: "edit" | "new" }) => {
             submitHandler={(value: unknown) =>
               handleCustomerCreation(value as string)
             }
+            submitBtnText="submit"
+            submitBtnClass="submit"
           />
         )}
         <ProgressSpinner isLoading={isWaitingResponse} />

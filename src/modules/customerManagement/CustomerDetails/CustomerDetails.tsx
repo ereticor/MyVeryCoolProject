@@ -53,9 +53,12 @@ const CustomerDetails = () => {
             ))}
           </CustomerProfileWrapper>
           <FormControls
-            cancelLink="/customer"
+            cancelHandler={() => CustomerService.deleteCustomer(customer.id)}
+            cancelBtnText="delete"
+            cancelBtnClass="delete"
             submitLink={`/customer/${customer.id}/edit`}
-            submitBtnText="delete"
+            submitBtnText="edit"
+            submitBtnClass="edit"
           />
         </>
       ) : (
