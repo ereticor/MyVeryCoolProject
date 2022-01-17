@@ -1,0 +1,15 @@
+@import "styles/variables";
+
+.customer__details {
+  display: flex;
+  align-items: start;
+  gap: 20px;
+  padding: $padding-module-app;
+
+  .customer__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+}

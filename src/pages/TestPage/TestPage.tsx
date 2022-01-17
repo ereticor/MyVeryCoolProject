@@ -30,6 +30,8 @@ const TestPage = () => {
     const newData = await CustomerService.getCustomer(
       "75839b68-2f9d-4613-abb7-f769edfb9dce"
     );
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
     setData(newData);
     setIsLoadingData(false);
   };

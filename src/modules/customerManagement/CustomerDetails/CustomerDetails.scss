@@ -1,0 +1,19 @@
+@import "styles/variables";
+
+.customer__profile {
+  width: 100%;
+  background: $color-white;
+
+  .customer__field {
+    display: flex;
+    gap: 20px;
+
+    .field__prop {
+      color: $color-text-grey;
+      flex: 1 1 10%;
+    }
+    .field__value {
+      flex: 1 1 70%;
+    }
+  }
+}

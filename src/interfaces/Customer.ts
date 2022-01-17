@@ -6,6 +6,6 @@ export default interface ICustomer {
   createdByName: string;
   lastModifiedAt: string;
   lastModifiedByName: string;
-  sapCode: number | null;
+  sapCode: string | number | null;
   [key: string]: string | number | null | Record<string, unknown>;
 }

@@ -3,13 +3,4 @@
 .customer__create {
   width: 100%;
   background: $color-white;
-
-  .customer__form {
-    .form__inputs {
-      display: flex;
-      align-items: start;
-      gap: 20px;
-      padding: $padding-module-app;
-    }
-  }
 }

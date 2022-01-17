@@ -6,6 +6,9 @@ import ModuleHeader from "modules/shared/ModuleHeader";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CustomerService from "services/customer.service";
+import CustomerProfileWrapper from "modules/customerManagement/CustomerProfileWrapper";
+import "./CustomerDetails.scss";
+import getDisplayedValue from "helpers/getDisplayedValue";
 
 const CustomerDetails = () => {
   const { customerId } = useParams();
@@ -33,14 +36,22 @@ const CustomerDetails = () => {
       />
       {customer ? (
         <>
-          <div className="customer__details">
+          <CustomerProfileWrapper>
             {customerHeaders.map((header, index) => (
-              <div key={`field: ${header.prop} ${index}`}>
-                <p>{header.text}</p>
-                <p>{customer[header.prop]}</p>
+              <div
+                key={`field: ${header.prop} ${index}`}
+                className="customer__field"
+              >
+                <p className="field__prop">{header.text}</p>
+                <p className="field__value">
+                  {getDisplayedValue({
+                    data: customer,
+                    header,
+                  })}
+                </p>
               </div>
             ))}
-          </div>
+          </CustomerProfileWrapper>
           <FormControls
             cancelLink="/customer"
             submitLink={`/customer/${customer.id}/edit`}

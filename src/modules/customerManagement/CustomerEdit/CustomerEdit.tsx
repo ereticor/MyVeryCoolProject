@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { TextField } from "@material-ui/core";
 
-import customerDefaultAvatar from "assets/icons/customerDefault.svg";
-
 import CustomerService from "services/customer.service";
 
 import ProgressSpinner from "components/ProgressSpinner";
@@ -13,6 +11,8 @@ import ICustomer from "interfaces/Customer";
 import customerHeaders from "helpers/getDisplayedValue/definedHeaders/customerHeaders";
 import FormControls from "components/FormControls";
 import { useParams } from "react-router-dom";
+import CustomerProfileWrapper from "modules/customerManagement/CustomerProfileWrapper";
+import getDisplayedValue from "helpers/getDisplayedValue";
 
 const CustomerEdit = ({ mode }: { mode: "edit" | "new" }) => {
   const { customerId } = useParams();
@@ -57,8 +57,7 @@ const CustomerEdit = ({ mode }: { mode: "edit" | "new" }) => {
     <div className="customer__create">
       <ModuleHeader title={"create customer"} backLink={"/customer"} />
       <form className="customer__form">
-        <div className="form__inputs">
-          <img src={customerDefaultAvatar} alt="default avatar" />
+        <CustomerProfileWrapper>
           {mode === "edit" && customer ? (
             customerHeaders.map((header) => (
               <TextField
@@ -67,7 +66,10 @@ const CustomerEdit = ({ mode }: { mode: "edit" | "new" }) => {
                 required={header.isEditable}
                 disabled={!header.isEditable}
                 label={header.text}
-                defaultValue={customer[header.prop]}
+                defaultValue={getDisplayedValue({
+                  data: customer,
+                  header,
+                })}
                 error={!!errorMessage}
                 helperText={errorMessage ? errorMessage : ""}
                 onChange={(e) => setCustomerName(e.target.value)}
@@ -83,7 +85,7 @@ const CustomerEdit = ({ mode }: { mode: "edit" | "new" }) => {
               onChange={(e) => setCustomerName(e.target.value)}
             />
           )}
-        </div>
+        </CustomerProfileWrapper>
         {mode === "edit" && customer ? (
           <FormControls
             cancelLink="/customer"
@@ -91,7 +93,7 @@ const CustomerEdit = ({ mode }: { mode: "edit" | "new" }) => {
             submitHandler={(value: unknown) =>
               handleCustomerCreation(value as string)
             }
-            submitBtnText="edit"
+            submitBtnText="save"
           />
         ) : (
           <FormControls
