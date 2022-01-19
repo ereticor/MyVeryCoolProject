@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import CustomerService from "services/customer.service";
 
 import "./CustomerTable.scss";
+import { truncObjectByKeys } from "helpers/object";
 
 const CustomerTable = () => {
   const [customerList, setCustomerList] = useState(null);
@@ -38,14 +39,11 @@ const CustomerTable = () => {
     setCustomerCount(response.totalCount);
     const filteredList = response.data.map((customer: ICustomer) => {
       const propTypes = customerHeaders.map((header) => header.prop);
-      return Object.assign(
-        {},
-        ...Object.entries(customer).map(([key, value]) => {
-          if (propTypes.some((prop) => prop === key)) {
-            return { [key]: value };
-          }
-        })
-      );
+      return truncObjectByKeys({
+        obj: customer,
+        keys: propTypes,
+        includeId: true,
+      });
     });
     setCustomerList(filteredList);
     setIsLoadingCustomers(false);

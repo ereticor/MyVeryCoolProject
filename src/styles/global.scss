@@ -23,7 +23,7 @@ a {
 }
 
 .main {
-  overflow-y: scroll;
+  overflow-y: auto;
   height: calc(100vh - 70px);
   padding: $padding-module-app;
   margin-top: $height-app-header;

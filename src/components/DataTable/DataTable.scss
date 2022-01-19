@@ -1,25 +1,29 @@
 @import "styles/variables";
 
-.table__head {
-  .head__cell {
-    text-transform: capitalize;
-  }
-}
+.table {
+  background: inherit;
 
-.table__row {
-  cursor: pointer;
-
-  &:nth-of-type(2n) {
-    &:hover {
-      background: $color-border-dark-grey;
+  .table__head {
+    .head__cell {
+      text-transform: capitalize;
     }
   }
 
-  &:nth-of-type(2n + 1) {
-    background: $color-border-grey;
+  .table__row {
+    cursor: pointer;
 
-    &:hover {
-      background: $color-border-dark-grey;
+    &:nth-of-type(2n) {
+      &:hover {
+        background: $color-border-dark-grey;
+      }
+    }
+
+    &:nth-of-type(2n + 1) {
+      background: $color-border-grey;
+
+      &:hover {
+        background: $color-border-dark-grey;
+      }
     }
   }
 }

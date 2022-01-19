@@ -37,7 +37,7 @@ const DataTable = ({
   handleRowClick,
 }: IDataTable) => {
   return (
-    <Table>
+    <Table className="table">
       <TableHead className="table__head">
         <TableRow>
           {tableHeaders.map((header) => (
