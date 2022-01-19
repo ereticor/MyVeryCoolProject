@@ -1,9 +1,10 @@
 import { Button } from "@material-ui/core";
 import { useEffect, useState } from "react";
 
+import ProgressSpinner from "components/ProgressSpinner";
+
 // import ApiService from "services/api.service";
 import CustomerService from "services/customer.service";
-import ProgressSpinner from "components/ProgressSpinner";
 
 import "./TestPage.scss";
 

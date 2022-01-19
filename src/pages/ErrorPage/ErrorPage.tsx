@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
+import { Button } from "@material-ui/core";
+
+import reqErrors from "constants/reqErrors";
 
 import errorImg from "assets/icons/error.gif";
 
 import "./ErrorPage.scss";
-import { Button } from "@material-ui/core";
-
-import reqErrors from "constants/reqErrors";
 
 const ErrorPage = ({ message }: { message: string }) => {
   return (

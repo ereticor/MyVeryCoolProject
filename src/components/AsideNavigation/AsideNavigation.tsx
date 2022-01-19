@@ -1,9 +1,9 @@
+import { NavLink } from "react-router-dom";
 import { Button } from "@material-ui/core";
 
-import { StyledAside } from "./style";
 import { IAppList } from "interfaces/app";
-import { NavLink } from "react-router-dom";
 
+import { StyledAside } from "./style";
 import "./AsideNavigation.scss";
 
 const AsideNavigation = ({ appList }: { appList: IAppList }) => {

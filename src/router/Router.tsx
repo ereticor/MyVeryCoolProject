@@ -3,17 +3,18 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import history from "store/history";
 
-import AppHeader from "components/AppHeader";
-import AsideNavigation from "components/AsideNavigation";
+import CustomerTable from "modules/customerManagement/CustomerTable";
+import CustomerEdit from "modules/customerManagement/CustomerEdit";
+import CustomerDetails from "modules/customerManagement/CustomerDetails";
 
 import Home from "pages/Home";
 import ErrorPage from "pages/ErrorPage";
 import TestPage from "pages/TestPage";
-import CustomerTable from "modules/customerManagement/CustomerTable";
-import CustomerEdit from "modules/customerManagement/CustomerEdit";
+
+import AppHeader from "components/AppHeader";
+import AsideNavigation from "components/AsideNavigation";
 
 import appList from "constants/appList";
-import CustomerDetails from "modules/customerManagement/CustomerDetails";
 
 const Router = () => {
   return (

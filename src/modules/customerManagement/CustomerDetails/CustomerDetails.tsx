@@ -1,14 +1,20 @@
-import FormControls from "components/FormControls";
-import ProgressSpinner from "components/ProgressSpinner";
-import customerHeaders from "helpers/getDisplayedValue/definedHeaders/customerHeaders";
-import ICustomer from "interfaces/Customer";
-import ModuleHeader from "modules/shared/ModuleHeader";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import CustomerService from "services/customer.service";
+
+import ModuleHeader from "modules/shared/ModuleHeader";
 import CustomerProfileWrapper from "modules/customerManagement/CustomerProfileWrapper";
-import "./CustomerDetails.scss";
+
+import FormControls from "components/FormControls";
+import ProgressSpinner from "components/ProgressSpinner";
+
+import CustomerService from "services/customer.service";
+
 import getDisplayedValue from "helpers/getDisplayedValue";
+import customerHeaders from "helpers/getDisplayedValue/definedHeaders/customerHeaders";
+
+import ICustomer from "interfaces/Customer";
+
+import "./CustomerDetails.scss";
 
 const CustomerDetails = () => {
   const { customerId } = useParams();

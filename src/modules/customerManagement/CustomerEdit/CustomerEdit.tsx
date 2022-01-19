@@ -1,18 +1,21 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { TextField } from "@material-ui/core";
+
+import ModuleHeader from "modules/shared/ModuleHeader";
+import CustomerProfileWrapper from "modules/customerManagement/CustomerProfileWrapper";
+
+import FormControls from "components/FormControls";
+import ProgressSpinner from "components/ProgressSpinner";
 
 import CustomerService from "services/customer.service";
 
-import ProgressSpinner from "components/ProgressSpinner";
-import ModuleHeader from "modules/shared/ModuleHeader";
+import getDisplayedValue from "helpers/getDisplayedValue";
+import customerHeaders from "helpers/getDisplayedValue/definedHeaders/customerHeaders";
+
+import ICustomer from "interfaces/Customer";
 
 import "./CustomerEdit.scss";
-import ICustomer from "interfaces/Customer";
-import customerHeaders from "helpers/getDisplayedValue/definedHeaders/customerHeaders";
-import FormControls from "components/FormControls";
-import { useParams } from "react-router-dom";
-import CustomerProfileWrapper from "modules/customerManagement/CustomerProfileWrapper";
-import getDisplayedValue from "helpers/getDisplayedValue";
 
 const CustomerEdit = ({ mode }: { mode: "edit" | "new" }) => {
   const { customerId } = useParams();

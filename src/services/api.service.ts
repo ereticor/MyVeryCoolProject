@@ -1,7 +1,8 @@
-import reqErrors from "constants/reqErrors";
-import capitalizeString from "helpers/capitalizeString";
 import history from "store/history";
 
+import capitalizeString from "helpers/capitalizeString";
+
+import reqErrors from "constants/reqErrors";
 import accessToken from "constants/accessToken";
 
 export interface IRequest {

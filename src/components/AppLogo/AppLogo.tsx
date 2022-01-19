@@ -1,5 +1,6 @@
-import logo from "assets/icons/appLogo.png";
 import { Link } from "react-router-dom";
+
+import logo from "assets/icons/appLogo.png";
 
 import "./AppLogo.scss";
 
