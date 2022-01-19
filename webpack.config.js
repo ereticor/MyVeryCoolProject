@@ -5,14 +5,17 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const ESlintPlugin = require("eslint-webpack-plugin");
 
+const port = 3000;
+
 const devServer = (isDev) =>
   !isDev
     ? {}
     : {
         devServer: {
           open: true,
-          hot: true,
-          port: 3000,
+          hot: false,
+          liveReload: true,
+          port: port,
           historyApiFallback: true,
         },
       };
@@ -24,11 +27,11 @@ module.exports = ({ development }) => ({
   mode: development ? "development" : "production",
   devtool: development ? "inline-source-map" : false,
   entry: {
-    app: "./src/index.tsx",
+    app: path.resolve(__dirname, "src/index.tsx"),
   },
   output: {
     path: path.resolve(__dirname, "dist"),
-    publicPath: development ? "http://localhost:3000/" : "",
+    publicPath: development ? `http://localhost:${port}/` : "",
     filename: "[name].[contenthash].js",
     assetModuleFilename: "assets/[hash][ext]",
   },
