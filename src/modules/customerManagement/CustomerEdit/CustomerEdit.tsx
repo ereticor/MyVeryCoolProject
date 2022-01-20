@@ -43,9 +43,11 @@ const CustomerEdit = ({ mode }: { mode: "edit" | "new" }) => {
     setIsWaitingResponse(true);
     const response =
       mode === "edit" && customer
-        ? await CustomerService.changeCustomer(customer.id, {
-            ...customer,
-            name,
+        ? await CustomerService.changeCustomer({
+            customerId: customer.id,
+            newData: {
+              name,
+            },
           })
         : await CustomerService.createCustomer(name);
     if (response.status > 399) {
