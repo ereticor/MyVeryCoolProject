@@ -1,82 +1,77 @@
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import ProgressSpinner from "components/ProgressSpinner";
 
 // import ApiService from "services/api.service";
-import CustomerService from "services/customer.service";
+// import CustomerService from "services/customer.service";
 
 import "./TestPage.scss";
 
-const TestPage = () => {
-  const [data, setData] = useState(null);
-  const [isLoadingData, setIsLoadingData] = useState(false);
+const TestPage = ({
+  getPage,
+  getCustomer,
+  changeCustomer,
+  deleteCustomer,
+  createCustomer,
+  getAllCustomers,
+  customers,
+  isLoadingCustomer,
+}: {
+  getPage: any;
+  getCustomer: any;
+  changeCustomer: any;
+  deleteCustomer: any;
+  createCustomer: any;
+  getAllCustomers: any;
+  customers: any;
+  isLoadingCustomer: boolean;
+}) => {
+  // const [data, setData] = useState(null);
+  // const [isLoadingData, setIsLoadingData] = useState(false);
 
   const handleGetAllCustomers = async () => {
-    setIsLoadingData(true);
-    const newData = await CustomerService.getAllCustomers();
-    setData(newData);
-    setIsLoadingData(false);
+    const newData = await getAllCustomers();
+    console.log(newData);
   };
 
   const handleGetPageCustomer = async () => {
-    setIsLoadingData(true);
-    const newData = await CustomerService.getPage({});
-    setData(newData);
-    setIsLoadingData(false);
+    const newData = await getPage({});
+    console.log(newData);
   };
 
   const handleGetCustomer = async () => {
-    setIsLoadingData(true);
-    const newData = await CustomerService.getCustomer(
-      "75839b68-2f9d-4613-abb7-f769edfb9dce"
-    );
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    setData(newData);
-    setIsLoadingData(false);
+    const newData = await getCustomer("75839b68-2f9d-4613-abb7-f769edfb9dce");
+    console.log(newData);
   };
 
   const handleCreateCustomer = async () => {
-    setIsLoadingData(true);
-    const newData = await CustomerService.createCustomer("some-very-uniq-name");
-    setData(newData);
-    setIsLoadingData(false);
+    const newData = await createCustomer("some-very-uniq-name");
+    console.log(newData);
   };
 
   const handleChangeCustomer = async () => {
-    setIsLoadingData(true);
-    const newData = await CustomerService.changeCustomer(
-      "75839b68-2f9d-4613-abb7-f769edfb9dce",
-      {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore
-        status: {
-          description: "cool description",
-        },
-      }
-    );
-    setData(newData);
-    setIsLoadingData(false);
+    const newData = await changeCustomer({
+      customerId: "75839b68-2f9d-4613-abb7-f769edfb9dce",
+      newData: {
+        name: "neo 300",
+      },
+    });
+    console.log(newData);
   };
 
   const handleDeleteCustomer = async () => {
-    setIsLoadingData(true);
-    const newData = await CustomerService.deleteCustomer(
+    const newData = await deleteCustomer(
       "75839b68-2f9d-4613-abb7-f769edfb9dce"
     );
-    setData(newData);
-    setIsLoadingData(false);
+    console.log(newData);
   };
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const setBg = () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const el = document.querySelector(".test-page");
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     Array.from(el!.children).forEach((child: any) => {
       if (child.type === "button") {
         const randomColor = Math.floor(Math.random() * 16777215).toString(16);
@@ -87,6 +82,7 @@ const TestPage = () => {
 
   useEffect(() => {
     setBg();
+    console.log(customers);
   }, []);
 
   return (
@@ -109,7 +105,7 @@ const TestPage = () => {
       <Button onClick={handleDeleteCustomer} className="test-btn">
         DeleteCustomer
       </Button>
-      <ProgressSpinner isLoading={isLoadingData} />
+      <ProgressSpinner isLoading={isLoadingCustomer} />
     </div>
   );
 };
