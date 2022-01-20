@@ -2,18 +2,10 @@ import history from "store/history";
 
 import capitalizeString from "helpers/capitalizeString";
 
+import { IError, IPostRequest, IRequest } from "interfaces/api.service";
+
 import reqErrors from "constants/reqErrors";
 import accessToken from "constants/accessToken";
-
-export interface IRequest {
-  api: "customer" | string;
-  options: RequestInit;
-  body?: BodyInit | string | Record<string, unknown>;
-}
-
-export interface IPostRequest extends IRequest {
-  body: BodyInit | string | Record<string, unknown>;
-}
 
 export default class ApiService {
   static basicOptions = {
@@ -38,13 +30,15 @@ export default class ApiService {
 
       const result = await response.json();
       return result;
-    } catch (err: number | unknown) {
+    } catch (err: IError) {
       if (err instanceof Response) {
         switch (err.status) {
-          case 400:
-            return err.json();
+          case 400: {
+            const parsedError = await err.json();
+            return Promise.reject(parsedError);
+          }
           case 401:
-            // window.location.reload();
+            window.location.reload();
             break;
           case 403:
             this.redirectToErrorPage(reqErrors.ACCESS_FORBIDDEN);
@@ -61,7 +55,7 @@ export default class ApiService {
             this.redirectToErrorPage(reqErrors.SERVER_TROUBLE);
             break;
           default:
-            this.redirectToErrorPage(reqErrors.UNEXPECTED + err);
+            this.redirectToErrorPage(reqErrors.UNEXPECTED + err.status);
             break;
         }
       }
@@ -92,7 +86,7 @@ export default class ApiService {
     return this.request({ api, options: { ...options, method: "DELETE" } });
   }
 
-  static redirectToErrorPage(message: string | Error) {
+  static redirectToErrorPage(message: IError) {
     history.push(`/error#${message}`);
     history.go(0);
   }

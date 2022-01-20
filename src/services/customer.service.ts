@@ -1,6 +1,12 @@
 import ApiService from "./api.service";
 
-import ICustomer from "interfaces/Customer";
+import {
+  IChangeCustomer,
+  ICreateCustomer,
+  IDeleteCustomer,
+  IGetCustomer,
+  IGetCustomerPage,
+} from "interfaces/customer.service";
 
 export default class CustomerService extends ApiService {
   static async getAllCustomers() {
@@ -12,12 +18,7 @@ export default class CustomerService extends ApiService {
     pageSize = 10,
     search = "",
     includeDeleted = false,
-  }: {
-    page?: number;
-    pageSize?: number;
-    search?: string;
-    includeDeleted?: boolean;
-  }) {
+  }: IGetCustomerPage) {
     const searchParams = super.createSearchParams({
       page,
       pageSize,
@@ -27,11 +28,11 @@ export default class CustomerService extends ApiService {
     return super.get({ api: `customer/paged?${searchParams}`, options: {} });
   }
 
-  static async getCustomer(customerId: ICustomer["id"]) {
+  static async getCustomer(customerId: IGetCustomer) {
     return super.get({ api: `customer/${customerId}`, options: {} });
   }
 
-  static async createCustomer(customerName: ICustomer["name"]) {
+  static async createCustomer(customerName: ICreateCustomer) {
     return super.post({
       api: `customer`,
       body: { name: customerName },
@@ -39,7 +40,7 @@ export default class CustomerService extends ApiService {
     });
   }
 
-  static async changeCustomer(customerId: ICustomer["id"], newData: ICustomer) {
+  static async changeCustomer({ customerId, newData }: IChangeCustomer) {
     return super.put({
       api: `customer/${customerId}`,
       body: { ...newData },
@@ -47,7 +48,7 @@ export default class CustomerService extends ApiService {
     });
   }
 
-  static async deleteCustomer(customerId: ICustomer["id"]) {
+  static async deleteCustomer(customerId: IDeleteCustomer) {
     return super.delete({
       api: `customer/${customerId}`,
       options: {},
