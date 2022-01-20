@@ -15,13 +15,13 @@ export const defaultAction = ({
       .then((data) => {
         return dispatch({
           type: success,
-          payload: data,
+          data,
         });
       })
       .catch((reqErr) => {
         return dispatch({
           type: error,
-          payload: reqErr,
+          error: reqErr,
         });
       });
   };

@@ -14,7 +14,7 @@ import { isAnyOfMatch } from "helpers/isAnyOfMatch";
 const CustomerSlice = createSlice({
   name: "customerState",
   initialState: {
-    currentCustomer: null,
+    currentCustomer: {},
     customers: [],
     isLoadingCustomer: false,
   },
@@ -32,6 +32,17 @@ const CustomerSlice = createSlice({
         ),
         (state) => {
           state.isLoadingCustomer = true;
+        }
+      )
+      .addMatcher(
+        isAnyOfMatch(
+          getCustomerTypes.success,
+          changeCustomerTypes.success,
+          createCustomerTypes.success,
+          deleteCustomerTypes.success
+        ),
+        (state, { data }) => {
+          state.currentCustomer = data;
         }
       )
       .addMatcher(
