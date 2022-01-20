@@ -1,6 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import * as types from "./actionTypes";
+import {
+  getCustomerTypes,
+  getAllCustomersTypes,
+  getCustomersPageTypes,
+  changeCustomerTypes,
+  createCustomerTypes,
+  deleteCustomerTypes,
+} from "./actionTypes";
+
+import { isAnyOfMatch } from "helpers/isAnyOfMatch";
 
 const CustomerSlice = createSlice({
   name: "customerState",
@@ -10,18 +19,47 @@ const CustomerSlice = createSlice({
     isLoadingCustomer: false,
   },
   reducers: {},
-  extraReducers: {
-    [types.getCustomerTypes.startType]: (state) => {
-      state.isLoadingCustomer = true;
-    },
-    [types.getCustomerTypes.successType]: (state, action) => {
-      state.customers = action.payload.data;
-      // state.currentCustomer = state.customers[0];
-      state.isLoadingCustomer = false;
-    },
-    [types.getCustomerTypes.errorType]: (state) => {
-      state.isLoadingCustomer = false;
-    },
+  extraReducers: (builder) => {
+    builder
+      .addMatcher(
+        isAnyOfMatch(
+          getCustomerTypes.start,
+          getAllCustomersTypes.start,
+          getCustomersPageTypes.start,
+          changeCustomerTypes.start,
+          createCustomerTypes.start,
+          deleteCustomerTypes.start
+        ),
+        (state) => {
+          state.isLoadingCustomer = true;
+        }
+      )
+      .addMatcher(
+        isAnyOfMatch(
+          getCustomerTypes.success,
+          getAllCustomersTypes.success,
+          getCustomersPageTypes.success,
+          changeCustomerTypes.success,
+          createCustomerTypes.success,
+          deleteCustomerTypes.success
+        ),
+        (state) => {
+          state.isLoadingCustomer = false;
+        }
+      )
+      .addMatcher(
+        isAnyOfMatch(
+          getCustomerTypes.error,
+          getAllCustomersTypes.error,
+          getCustomersPageTypes.error,
+          changeCustomerTypes.error,
+          createCustomerTypes.error,
+          deleteCustomerTypes.error
+        ),
+        (state) => {
+          state.isLoadingCustomer = false;
+        }
+      );
   },
 });
 

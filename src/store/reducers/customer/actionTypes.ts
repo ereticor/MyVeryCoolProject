@@ -1,35 +1,35 @@
 export const getAllCustomersTypes = {
-  startType: "GET_ALL_CUSTOMER_REQUEST",
-  successType: "GET_ALL_CUSTOMER_SUCCESS",
-  errorType: "GET_ALL_CUSTOMER_FAILURE",
+  start: "GET_ALL_CUSTOMER_REQUEST",
+  success: "GET_ALL_CUSTOMER_SUCCESS",
+  error: "GET_ALL_CUSTOMER_FAILURE",
 };
 
 export const getCustomersPageTypes = {
-  startType: "GET_CUSTOMERS_PAGE_REQUEST",
-  successType: "GET_CUSTOMERS_PAGE_SUCCESS",
-  errorType: "GET_CUSTOMERS_PAGE_FAILURE",
+  start: "GET_CUSTOMERS_PAGE_REQUEST",
+  success: "GET_CUSTOMERS_PAGE_SUCCESS",
+  error: "GET_CUSTOMERS_PAGE_FAILURE",
 };
 
 export const getCustomerTypes = {
-  startType: "GET_CUSTOMER_REQUEST",
-  successType: "GET_CUSTOMER_SUCCESS",
-  errorType: "GET_CUSTOMER_FAILURE",
+  start: "GET_CUSTOMER_REQUEST",
+  success: "GET_CUSTOMER_SUCCESS",
+  error: "GET_CUSTOMER_FAILURE",
 };
 
 export const changeCustomerTypes = {
-  startType: "PUT_CUSTOMER_REQUEST",
-  successType: "PUT_CUSTOMER_SUCCESS",
-  errorType: "PUT_CUSTOMER_FAILURE",
+  start: "PUT_CUSTOMER_REQUEST",
+  success: "PUT_CUSTOMER_SUCCESS",
+  error: "PUT_CUSTOMER_FAILURE",
 };
 
 export const createCustomerTypes = {
-  startType: "POST_CUSTOMER_REQUEST",
-  successType: "POST_CUSTOMER_SUCCESS",
-  errorType: "POST_CUSTOMER_FAILURE",
+  start: "POST_CUSTOMER_REQUEST",
+  success: "POST_CUSTOMER_SUCCESS",
+  error: "POST_CUSTOMER_FAILURE",
 };
 
 export const deleteCustomerTypes = {
-  startType: "DELETE_CUSTOMER_REQUEST",
-  successType: "DELETE_CUSTOMER_SUCCESS",
-  errorType: "DELETE_CUSTOMER_FAILURE",
+  start: "DELETE_CUSTOMER_REQUEST",
+  success: "DELETE_CUSTOMER_SUCCESS",
+  error: "DELETE_CUSTOMER_FAILURE",
 };

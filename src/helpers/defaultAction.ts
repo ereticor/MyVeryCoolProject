@@ -2,26 +2,26 @@ import { Dispatch } from "redux";
 
 interface IDefaultAction {
   apiFunction: () => Promise<unknown>;
-  types: { startType: string; successType: string; errorType: string };
+  types: { start: string; success: string; error: string };
 }
 
 export const defaultAction = ({
   apiFunction,
-  types: { startType, successType, errorType },
+  types: { start, success, error },
 }: IDefaultAction) => {
   return (dispatch: Dispatch) => {
-    dispatch({ type: startType });
+    dispatch({ type: start });
     return apiFunction()
       .then((data) => {
         return dispatch({
-          type: successType,
+          type: success,
           payload: data,
         });
       })
-      .catch((error) => {
+      .catch((reqErr) => {
         return dispatch({
-          type: errorType,
-          payload: error,
+          type: error,
+          payload: reqErr,
         });
       });
   };
