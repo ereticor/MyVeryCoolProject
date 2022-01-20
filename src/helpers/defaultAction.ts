@@ -1,4 +1,4 @@
-import { Dispatch } from "@reduxjs/toolkit";
+import { Dispatch } from "redux";
 
 interface IDefaultAction {
   apiFunction: () => Promise<unknown>;
@@ -13,15 +13,15 @@ export const defaultAction = ({
     dispatch({ type: startType });
     return apiFunction()
       .then((data) => {
-        dispatch({
+        return dispatch({
           type: successType,
-          data,
+          payload: data,
         });
       })
       .catch((error) => {
-        dispatch({
+        return dispatch({
           type: errorType,
-          error,
+          payload: error,
         });
       });
   };
