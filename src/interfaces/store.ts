@@ -1,5 +1,3 @@
-import { RouterState } from "connected-react-router";
-
 import ICustomer from "interfaces/Customer";
 
 export interface ICustomerState {
@@ -9,6 +7,5 @@ export interface ICustomerState {
 }
 
 export default interface IStoreState {
-  router: RouterState<unknown>;
   customerState: ICustomerState;
 }

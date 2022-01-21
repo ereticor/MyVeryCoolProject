@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Button } from "@material-ui/core";
 
 import reqErrors from "constants/reqErrors";
@@ -7,7 +7,9 @@ import errorImg from "assets/icons/error.gif";
 
 import "./ErrorPage.scss";
 
-const ErrorPage = ({ message }: { message: string }) => {
+const ErrorPage = () => {
+  const { message = reqErrors.UNEXPECTED } = useParams();
+
   return (
     <div className="error__page">
       <div className="error__container">

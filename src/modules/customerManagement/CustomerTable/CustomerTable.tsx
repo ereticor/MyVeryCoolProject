@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IconButton, Input } from "@material-ui/core";
 import { Add, Close, Search } from "@material-ui/icons";
-
-import history from "store/history";
 
 import ModuleHeader from "modules/shared/ModuleHeader";
 
@@ -28,6 +26,8 @@ const CustomerTable = () => {
   const [customerCount, setCustomerCount] = useState(1);
   const [isLoadingCustomers, setIsLoadingCustomers] = useState(false);
   const [isSearchOpened, setIsSearchOpened] = useState(false);
+
+  const navigate = useNavigate();
 
   const fetchCustomerList = async ({
     page,
@@ -113,8 +113,7 @@ const CustomerTable = () => {
           handlePageChange={handlePageChange}
           handlePageSizeChange={handlePageSizeChange}
           handleRowClick={(customerId) => {
-            history.push(`/customer/${customerId}`);
-            history.go(0);
+            navigate(`/customer/${customerId}`);
           }}
         />
       ) : null}

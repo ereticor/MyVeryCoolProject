@@ -1,8 +1,6 @@
 import { Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import history from "store/history";
-
 import CustomerTable from "modules/customerManagement/CustomerTable";
 import CustomerEdit from "modules/customerManagement/CustomerEdit";
 import CustomerDetails from "modules/customerManagement/CustomerDetails";
@@ -33,10 +31,7 @@ const Router = () => {
             />
             <Route path="/customer/:customerId" element={<CustomerDetails />} />
             <Route path="/customer/" element={<CustomerTable />} />
-            <Route
-              path="/error"
-              element={<ErrorPage message={history.location.hash} />}
-            />
+            <Route path="/error/:message" element={<ErrorPage />} />
             <Route path="/test" element={<TestPage />} />
             <Route path="/" element={<Home appList={appList} />} />
             <Route path="*" element={<div>Lorem ipsum dolor sit amet.</div>} />

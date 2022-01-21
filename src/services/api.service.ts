@@ -1,4 +1,4 @@
-import history from "store/history";
+import { useNavigate } from "react-router-dom";
 
 import capitalizeString from "helpers/capitalizeString";
 
@@ -52,10 +52,10 @@ export default class ApiService {
           case 503:
           case 504:
           case 505:
-            this.redirectToErrorPage(reqErrors.SERVER_TROUBLE);
+            // this.redirectToErrorPage(reqErrors.SERVER_TROUBLE);
             break;
           default:
-            this.redirectToErrorPage(reqErrors.UNEXPECTED + err.status);
+            // this.redirectToErrorPage(reqErrors.UNEXPECTED + err.status);
             break;
         }
       }
@@ -87,8 +87,9 @@ export default class ApiService {
   }
 
   static redirectToErrorPage(message: IError) {
-    history.push(`/error#${message}`);
-    history.go(0);
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const navigate = useNavigate();
+    navigate(`/error/${message}`);
   }
 
   static createSearchParams(paramObj: {
