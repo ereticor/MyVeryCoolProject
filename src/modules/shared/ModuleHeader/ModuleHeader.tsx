@@ -4,7 +4,7 @@ import { ArrowBack } from "@material-ui/icons";
 import "./ModuleHeader.scss";
 
 interface IModuleHeader {
-  title: string;
+  title?: string | null;
   headClass?: string;
   headNavClass?: string;
   titleClass?: string;
@@ -28,7 +28,9 @@ const ModuleHeader = ({
             <ArrowBack />
           </Link>
         ) : null}
-        <h3 className={`module__title ${titleClass}`}>{title}</h3>
+        {title ? (
+          <h3 className={`module__title ${titleClass}`}>{title}</h3>
+        ) : null}
       </nav>
       {children}
     </div>
