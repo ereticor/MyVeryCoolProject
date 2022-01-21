@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import ModuleHeader from "modules/shared/ModuleHeader";
@@ -7,27 +7,33 @@ import CustomerProfileWrapper from "modules/customerManagement/CustomerProfileWr
 import FormControls from "components/FormControls";
 import ProgressSpinner from "components/ProgressSpinner";
 
-import CustomerService from "services/customer.service";
-
 import getDisplayedValue from "helpers/getDisplayedValue";
 import customerHeaders from "helpers/getDisplayedValue/definedHeaders/customerHeaders";
 
 import ICustomer from "interfaces/Customer";
+import { IDeleteCustomer, IGetCustomer } from "interfaces/customer.service";
 
 import "./CustomerDetails.scss";
 
-const CustomerDetails = () => {
+interface ICustomerDetails {
+  customer: ICustomer;
+  isLoadingCustomer: boolean;
+  getCustomer: (args: IGetCustomer) => void;
+  deleteCustomer: (args: IDeleteCustomer) => void;
+}
+
+const CustomerDetails = ({
+  customer,
+  isLoadingCustomer,
+  getCustomer,
+  deleteCustomer,
+}: ICustomerDetails) => {
   const { customerId } = useParams();
-  const [isLoadingCustomer, setIsLoadingCustomer] = useState(false);
-  const [customer, setCustomer] = useState<ICustomer | null>(null);
 
   const handleCustomerLoad = async () => {
-    setIsLoadingCustomer(true);
     if (customerId) {
-      const currentCustomer = await CustomerService.getCustomer(customerId);
-      setCustomer(currentCustomer);
+      getCustomer(customerId);
     }
-    setIsLoadingCustomer(false);
   };
 
   useEffect(() => {
@@ -59,7 +65,7 @@ const CustomerDetails = () => {
             ))}
           </CustomerProfileWrapper>
           <FormControls
-            cancelHandler={() => CustomerService.deleteCustomer(customer.id)}
+            cancelHandler={() => deleteCustomer(customer.id)}
             cancelBtnText="delete"
             cancelBtnClass="delete"
             submitLink={`/customer/${customer.id}/edit`}
