@@ -8,54 +8,67 @@ import CustomerProfileWrapper from "modules/customerManagement/CustomerProfileWr
 import FormControls from "components/FormControls";
 import ProgressSpinner from "components/ProgressSpinner";
 
-import CustomerService from "services/customer.service";
-
 import getDisplayedValue from "helpers/getDisplayedValue";
 import customerHeaders from "helpers/getDisplayedValue/definedHeaders/customerHeaders";
 
 import ICustomer from "interfaces/Customer";
+import {
+  IChangeCustomer,
+  ICreateCustomer,
+  IGetCustomer,
+} from "interfaces/customer.service";
 
 import "./CustomerEdit.scss";
 
-const CustomerEdit = ({ mode }: { mode: "edit" | "new" }) => {
+interface IResponseError {
+  status: number;
+  errors: {
+    Name: string[];
+  };
+}
+interface ICustomerEdit {
+  mode: "edit" | "new";
+  customer: ICustomer;
+  isLoadingCustomer: boolean;
+  getCustomer: (args: IGetCustomer) => void;
+  createCustomer: (args: ICreateCustomer) => Promise<unknown>;
+  changeCustomer: (args: IChangeCustomer) => Promise<unknown>;
+}
+
+const CustomerEdit = ({
+  mode,
+  customer,
+  isLoadingCustomer,
+  getCustomer,
+  createCustomer,
+  changeCustomer,
+}: ICustomerEdit) => {
   const { customerId } = useParams();
   const [customerName, setCustomerName] = useState("");
-  const [customer, setCustomer] = useState<ICustomer | null>(null);
-  const [isWaitingResponse, setIsWaitingResponse] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleCustomerLoad = async () => {
-    setIsWaitingResponse(true);
-    if (customerId) {
-      const currentCustomer = await CustomerService.getCustomer(customerId);
-      setCustomer(currentCustomer);
-    }
-    setIsWaitingResponse(false);
-  };
-
   useEffect(() => {
-    if (mode === "edit") {
-      handleCustomerLoad();
+    if (mode === "edit" && customerId && customerId !== customer.id) {
+      getCustomer(customerId);
     }
   }, []);
 
   const handleCustomerCreation = async (name: string) => {
-    setIsWaitingResponse(true);
     const response =
       mode === "edit" && customer
-        ? await CustomerService.changeCustomer({
+        ? await changeCustomer({
             customerId: customer.id,
             newData: {
               name,
             },
           })
-        : await CustomerService.createCustomer(name);
-    if (response.status > 399) {
-      setErrorMessage(response.errors.Name[0]);
+        : await createCustomer(name);
+    const err = response as IResponseError;
+    if (err.status > 399) {
+      setErrorMessage(err.errors.Name[0]);
     } else {
       setErrorMessage("");
     }
-    setIsWaitingResponse(false);
   };
 
   return (
@@ -110,7 +123,7 @@ const CustomerEdit = ({ mode }: { mode: "edit" | "new" }) => {
             submitBtnClass="submit"
           />
         )}
-        <ProgressSpinner isLoading={isWaitingResponse} />
+        <ProgressSpinner isLoading={isLoadingCustomer} />
       </form>
     </div>
   );
