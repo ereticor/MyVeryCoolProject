@@ -8,20 +8,28 @@ import ModuleHeader from "modules/shared/ModuleHeader";
 import DataTable from "components/DataTable";
 import ProgressSpinner from "components/ProgressSpinner";
 
-import CustomerService from "services/customer.service";
-
-import { truncObjectByKeys } from "helpers/object";
 import customerHeaders from "helpers/getDisplayedValue/definedHeaders/customerHeaders";
 
-import ICustomer from "interfaces/Customer";
+import { IGetCustomerPage } from "interfaces/customer.service";
+import { ICustomerState } from "interfaces/store";
 
 import "./CustomerTable.scss";
-import { IGetCustomerPage } from "interfaces/customer.service";
 
-const CustomerTable = () => {
+interface ICustomerTable {
+  customers: ICustomerState["customers"];
+  isLoadingCustomer: boolean;
+  getPage: (args: IGetCustomerPage) => Promise<unknown>;
+}
+// deleteCustomer: (args: IDeleteCustomer) => Promise<unknown>;
+
+const CustomerTable = ({
+  customers,
+  isLoadingCustomer,
+  getPage,
+}: ICustomerTable) => {
+  // deleteCustomer,
   const [searchParams, setSearchParams] = useSearchParams({});
 
-  const [customerList, setCustomerList] = useState(null);
   const [searchName, setSearch] = useState(
     searchParams.get("searchName") || ""
   );
@@ -31,8 +39,6 @@ const CustomerTable = () => {
   const [pageSize, setPageSize] = useState(
     (searchParams.get("pageSize") as unknown as number) || 10
   );
-  const [customerCount, setCustomerCount] = useState(1);
-  const [isLoadingCustomers, setIsLoadingCustomers] = useState(false);
   const [isSearchOpened, setIsSearchOpened] = useState(false);
 
   const navigate = useNavigate();
@@ -42,30 +48,11 @@ const CustomerTable = () => {
     pageSize,
     search,
   }: IGetCustomerPage) => {
-    setIsLoadingCustomers(true);
-
-    const response = await CustomerService.getPage({
+    getPage({
       page,
       pageSize,
       search,
     });
-    if (response.status === 401) {
-      return;
-    }
-
-    setCustomerCount(response.totalCount);
-    const filteredList = response.data.map((customer: ICustomer) => {
-      const propTypes = customerHeaders.map((header) => header.prop);
-      return truncObjectByKeys({
-        obj: customer,
-        keys: propTypes,
-        includeId: true,
-      });
-    });
-
-    setCustomerList(filteredList);
-
-    setIsLoadingCustomers(false);
   };
 
   const handlePageChange = (newPage: number) => {
@@ -127,13 +114,13 @@ const CustomerTable = () => {
           </Link>
         </div>
       </ModuleHeader>
-      {customerList ? (
+      {customers.data ? (
         <DataTable
-          tableData={customerList}
+          tableData={customers.data}
           tableHeaders={customerHeaders}
           page={page}
           pageSize={pageSize}
-          dataCount={customerCount}
+          dataCount={customers.totalCount}
           handlePageChange={handlePageChange}
           handlePageSizeChange={handlePageSizeChange}
           handleRowClick={(customerId) => {
@@ -141,7 +128,7 @@ const CustomerTable = () => {
           }}
         />
       ) : null}
-      <ProgressSpinner isLoading={isLoadingCustomers} />
+      <ProgressSpinner isLoading={isLoadingCustomer} />
     </div>
   );
 };
