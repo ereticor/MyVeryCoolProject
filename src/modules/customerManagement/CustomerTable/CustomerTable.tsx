@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { IconButton, Input } from "@material-ui/core";
 import { Add, Close, Search } from "@material-ui/icons";
 
@@ -19,10 +19,18 @@ import "./CustomerTable.scss";
 import { IGetCustomerPage } from "interfaces/customer.service";
 
 const CustomerTable = () => {
+  const [searchParams, setSearchParams] = useSearchParams({});
+
   const [customerList, setCustomerList] = useState(null);
-  const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [searchName, setSearch] = useState(
+    searchParams.get("searchName") || ""
+  );
+  const [page, setPage] = useState(
+    (searchParams.get("page") as unknown as number) || 1
+  );
+  const [pageSize, setPageSize] = useState(
+    (searchParams.get("pageSize") as unknown as number) || 10
+  );
   const [customerCount, setCustomerCount] = useState(1);
   const [isLoadingCustomers, setIsLoadingCustomers] = useState(false);
   const [isSearchOpened, setIsSearchOpened] = useState(false);
@@ -35,11 +43,16 @@ const CustomerTable = () => {
     search,
   }: IGetCustomerPage) => {
     setIsLoadingCustomers(true);
-    const response = await CustomerService.getPage({ page, pageSize, search });
+
+    const response = await CustomerService.getPage({
+      page,
+      pageSize,
+      search,
+    });
     if (response.status === 401) {
       return;
     }
-    setPage(response.page);
+
     setCustomerCount(response.totalCount);
     const filteredList = response.data.map((customer: ICustomer) => {
       const propTypes = customerHeaders.map((header) => header.prop);
@@ -49,7 +62,9 @@ const CustomerTable = () => {
         includeId: true,
       });
     });
+
     setCustomerList(filteredList);
+
     setIsLoadingCustomers(false);
   };
 
@@ -62,20 +77,29 @@ const CustomerTable = () => {
     setPage(1);
   };
 
+  useEffect(() => {
+    if (searchName) {
+      setSearchParams({
+        page: String(page),
+        pageSize: String(pageSize),
+        searchName,
+      });
+    } else {
+      setSearchParams({
+        page: String(page),
+        pageSize: String(pageSize),
+      });
+    }
+
+    fetchCustomerList({ page, pageSize, search: searchName });
+  }, [page, pageSize, searchName]);
+
   const handleIsSearchOpened = () => {
     setIsSearchOpened((prev) => !prev);
   };
 
   useEffect(() => {
-    fetchCustomerList({});
-  }, []);
-
-  useEffect(() => {
-    fetchCustomerList({ page, pageSize, search });
-  }, [page, pageSize, search]);
-
-  useEffect(() => {
-    if (isSearchOpened === false && search !== "") {
+    if (isSearchOpened === false && searchName !== "") {
       setSearch("");
     }
   }, [isSearchOpened]);
