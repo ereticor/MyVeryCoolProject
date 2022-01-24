@@ -13,10 +13,18 @@ import AppHeader from "components/AppHeader";
 import AsideNavigation from "components/AsideNavigation";
 
 import appList from "constants/appList";
+import ProgressSpinner from "components/ProgressSpinner";
 
 const Router = () => {
   return (
-    <Suspense fallback={<div className="loading">Loading</div>}>
+    <Suspense
+      fallback={
+        <div className="loading">
+          <h1>Loading</h1>
+          <ProgressSpinner isLoading={true} />
+        </div>
+      }
+    >
       <BrowserRouter>
         <AppHeader />
         <main className="main">
