@@ -10,6 +10,10 @@ import {
 } from "./actionTypes";
 
 import { isAnyOfMatch } from "helpers/isAnyOfMatch";
+import customerHeaders from "helpers/getDisplayedValue/definedHeaders/customerHeaders";
+import { truncObjectByKeys } from "helpers/object";
+
+import ICustomer from "interfaces/Customer";
 
 const CustomerSlice = createSlice({
   name: "customerState",
@@ -43,6 +47,23 @@ const CustomerSlice = createSlice({
         ),
         (state, { data }) => {
           state.currentCustomer = data;
+        }
+      )
+      .addMatcher(
+        isAnyOfMatch(
+          getAllCustomersTypes.success,
+          getCustomersPageTypes.success
+        ),
+        (state, { data }) => {
+          const filteredList = data.data.map((customer: ICustomer) => {
+            const propTypes = customerHeaders.map((header) => header.prop);
+            return truncObjectByKeys({
+              obj: customer,
+              keys: propTypes,
+              includeId: true,
+            });
+          });
+          state.customers = { ...data, data: filteredList };
         }
       )
       .addMatcher(

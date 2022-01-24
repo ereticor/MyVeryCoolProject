@@ -10,7 +10,8 @@ import {
 
 export default class CustomerService extends ApiService {
   static async getAllCustomers() {
-    return super.get({ api: "customer", options: {} });
+    const data = await super.get({ api: "customer", options: {} });
+    return { data: data, totalCount: data.length };
   }
 
   static async getPage({
