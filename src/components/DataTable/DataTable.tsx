@@ -38,30 +38,34 @@ const DataTable = ({
 }: IDataTable) => {
   return (
     <Table className="table">
-      <TableHead className="table__head">
-        <TableRow>
-          {tableHeaders.map((header) => (
-            <TableCell key={`header: ${header.prop}`} className="head__cell">
-              {header.text}
-            </TableCell>
-          ))}
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {tableData.map((data, rowIndex) => (
-          <TableRow
-            key={`row: ${"" + data.id + rowIndex || rowIndex}`}
-            className="table__row"
-            onClick={() => (handleRowClick ? handleRowClick(data.id) : false)}
-          >
-            {tableHeaders.map((header, cellIndex) => (
-              <TableCell key={`cell: ${"" + data.id + cellIndex || cellIndex}`}>
-                {getDisplayedValue({ data, header })}
+      <div className="table__overflow">
+        <TableHead className="table__head">
+          <TableRow>
+            {tableHeaders.map((header) => (
+              <TableCell key={`header: ${header.prop}`} className="head__cell">
+                {header.text}
               </TableCell>
             ))}
           </TableRow>
-        ))}
-      </TableBody>
+        </TableHead>
+        <TableBody>
+          {tableData.map((data, rowIndex) => (
+            <TableRow
+              key={`row: ${"" + data.id + rowIndex || rowIndex}`}
+              className="table__row"
+              onClick={() => (handleRowClick ? handleRowClick(data.id) : false)}
+            >
+              {tableHeaders.map((header, cellIndex) => (
+                <TableCell
+                  key={`cell: ${"" + data.id + cellIndex || cellIndex}`}
+                >
+                  {getDisplayedValue({ data, header })}
+                </TableCell>
+              ))}
+            </TableRow>
+          ))}
+        </TableBody>
+      </div>
       <TableFooter>
         <TablePagination
           rowsPerPageOptions={[10, 20, 30]}

@@ -3,6 +3,11 @@
 .table {
   background: inherit;
 
+  &__overflow {
+    display: table;
+    width: 100%;
+  }
+
   .table__head {
     .head__cell {
       text-transform: capitalize;
