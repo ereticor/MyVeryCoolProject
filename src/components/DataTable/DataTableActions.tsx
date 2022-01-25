@@ -15,37 +15,37 @@ const CONFIG = {
     get title() {
       return tableActions.edit;
     },
-    icon: <Edit />,
+    icon: <Edit color="primary" />,
   },
   [tableActions.delete]: {
     get title() {
       return tableActions.delete;
     },
-    icon: <Delete />,
+    icon: <Delete color="secondary" />,
   },
   [tableActions.reject]: {
     get title() {
       return tableActions.reject;
     },
-    icon: <Cancel />,
+    icon: <Cancel color="secondary" />,
   },
   [tableActions.upload]: {
     get title() {
       return tableActions.upload;
     },
-    icon: <CloudUploadOutlined />,
+    icon: <CloudUploadOutlined color="primary" />,
   },
   [tableActions.download]: {
     get title() {
       return tableActions.download;
     },
-    icon: <AttachFile />,
+    icon: <AttachFile color="primary" />,
   },
   [tableActions.copy]: {
     get title() {
       return tableActions.copy;
     },
-    icon: <LibraryAdd />,
+    icon: <LibraryAdd color="primary" />,
   },
 };
 

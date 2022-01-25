@@ -117,7 +117,7 @@ const CustomerTable = ({
           </IconButton>
           <Link to="/customer/new">
             <IconButton aria-label="plus" onClick={close}>
-              <Add />
+              <Add color="primary" />
             </IconButton>
           </Link>
         </div>
