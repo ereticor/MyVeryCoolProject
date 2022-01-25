@@ -8,7 +8,7 @@ import {
   TableFooter,
 } from "@material-ui/core";
 
-import getDisplayedValue from "helpers/getDisplayedValue";
+import DataTableRow from "./DataTableRow";
 
 import IAnyDataObject from "interfaces/anyDataObject";
 import ITableHeader from "interfaces/tableHeader";
@@ -24,6 +24,10 @@ interface IDataTable {
   handlePageChange: (newPage: number) => void;
   handlePageSizeChange: (newSize: number) => void;
   handleRowClick?: (id: number | string) => void;
+  tableRowActions?: {
+    type: string;
+    handler: Exclude<IDataTable["handleRowClick"], undefined>;
+  }[];
 }
 
 const DataTable = ({
@@ -35,6 +39,7 @@ const DataTable = ({
   handlePageChange,
   handlePageSizeChange,
   handleRowClick,
+  tableRowActions,
 }: IDataTable) => {
   return (
     <Table className="table">
@@ -46,30 +51,46 @@ const DataTable = ({
                 {header.text}
               </TableCell>
             ))}
+            {tableRowActions
+              ? tableRowActions.map((action, index) => {
+                  return (
+                    <th
+                      data-action={action.type}
+                      key={`header action: ${index}`}
+                      className="MuiTableCell-root MuiTableCell-head head__cell"
+                    >
+                      {null}
+                    </th>
+                  );
+                })
+              : null}
           </TableRow>
         </TableHead>
         <TableBody>
           {tableData.map((data, rowIndex) => (
-            <TableRow
+            <DataTableRow
               key={`row: ${"" + data.id + rowIndex || rowIndex}`}
-              className="table__row"
-              onClick={() => (handleRowClick ? handleRowClick(data.id) : false)}
-            >
-              {tableHeaders.map((header, cellIndex) => (
-                <TableCell
-                  key={`cell: ${"" + data.id + cellIndex || cellIndex}`}
-                >
-                  {getDisplayedValue({ data, header })}
-                </TableCell>
-              ))}
-            </TableRow>
+              data={data}
+              headers={tableHeaders}
+              handleRowClick={() =>
+                handleRowClick ? handleRowClick(data.id) : false
+              }
+              rowActions={
+                tableRowActions
+                  ? tableRowActions.map((rowAction) => ({
+                      type: rowAction.type,
+                      handler: () => rowAction.handler(data.id),
+                    }))
+                  : undefined
+              }
+            />
           ))}
         </TableBody>
       </div>
       <TableFooter>
         <TablePagination
           rowsPerPageOptions={[10, 20, 30]}
-          rowsPerPage={pageSize}
+          rowsPerPage={+pageSize}
           onRowsPerPageChange={(e) => handlePageSizeChange(+e.target.value)}
           page={page - 1}
           onPageChange={(e, newPage) => handlePageChange(newPage + 1)}

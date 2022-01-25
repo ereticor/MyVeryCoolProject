@@ -12,7 +12,7 @@ import useDebounce from "hooks/useDebounce";
 
 import customerHeaders from "helpers/getDisplayedValue/definedHeaders/customerHeaders";
 
-import { IGetCustomerPage } from "interfaces/customer.service";
+import { IDeleteCustomer, IGetCustomerPage } from "interfaces/customer.service";
 import { ICustomerState } from "interfaces/store";
 
 import "./CustomerTable.scss";
@@ -21,15 +21,15 @@ interface ICustomerTable {
   customers: ICustomerState["customers"];
   isLoadingCustomer: boolean;
   getPage: (args: IGetCustomerPage) => Promise<unknown>;
+  deleteCustomer: (args: IDeleteCustomer) => Promise<unknown>;
 }
-// deleteCustomer: (args: IDeleteCustomer) => Promise<unknown>;
 
 const CustomerTable = ({
   customers,
   isLoadingCustomer,
   getPage,
+  deleteCustomer,
 }: ICustomerTable) => {
-  // deleteCustomer,
   const [searchParams, setSearchParams] = useSearchParams({});
 
   const [searchName, setSearch] = useState(
@@ -46,18 +46,6 @@ const CustomerTable = ({
   const [isSearchOpened, setIsSearchOpened] = useState(false);
 
   const navigate = useNavigate();
-
-  const fetchCustomerList = async ({
-    page,
-    pageSize,
-    search,
-  }: IGetCustomerPage) => {
-    getPage({
-      page,
-      pageSize,
-      search,
-    });
-  };
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
@@ -82,7 +70,7 @@ const CustomerTable = ({
       });
     }
 
-    fetchCustomerList({ page, pageSize, search: searchName });
+    getPage({ page, pageSize, search: searchName });
   }, [page, pageSize, debouncedSearchName]);
 
   const handleIsSearchOpened = () => {
@@ -94,6 +82,22 @@ const CustomerTable = ({
       setSearch("");
     }
   }, [isSearchOpened]);
+
+  const rowActions = [
+    {
+      type: "edit",
+      handler: (customerId: number | string) => {
+        navigate(`/customer/${customerId}/edit`);
+      },
+    },
+    {
+      type: "delete",
+      handler: async (customerId: number | string) => {
+        await deleteCustomer(customerId);
+        getPage({ page, pageSize, search: searchName });
+      },
+    },
+  ];
 
   return (
     <div className="customers">
@@ -130,6 +134,7 @@ const CustomerTable = ({
           handleRowClick={(customerId) => {
             navigate(`/customer/${customerId}`);
           }}
+          tableRowActions={rowActions}
         />
       ) : null}
       <ProgressSpinner isLoading={isLoadingCustomer} />

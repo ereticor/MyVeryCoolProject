@@ -44,18 +44,22 @@ const CustomerEdit = ({
   changeCustomer,
 }: ICustomerEdit) => {
   const { customerId } = useParams();
-  const [customerName, setCustomerName] = useState("");
+  const [customerName, setCustomerName] = useState(customer.name || "");
   const [errorMessage, setErrorMessage] = useState("");
 
-  useEffect(() => {
-    if (mode === "edit" && customerId && customerId !== customer.id) {
+  const handleCustomerLoad = async () => {
+    if (customerId && customerId !== customer.id) {
       getCustomer(customerId);
     }
+  };
+
+  useEffect(() => {
+    handleCustomerLoad();
   }, []);
 
   const handleCustomerCreation = async (name: string) => {
     const response =
-      mode === "edit" && customer
+      mode === "edit"
         ? await changeCustomer({
             customerId: customer.id,
             newData: {
@@ -73,26 +77,31 @@ const CustomerEdit = ({
 
   return (
     <div className="customer__create">
-      <ModuleHeader title={"create customer"} backLink={"/customer"} />
+      <ModuleHeader
+        title={mode === "edit" ? "update customer" : "create customer"}
+        backLink={"/customer"}
+      />
       <form className="customer__form">
         <CustomerProfileWrapper>
-          {mode === "edit" && customer ? (
-            customerHeaders.map((header) => (
-              <TextField
-                key={`field: ${header.prop}`}
-                id={header.prop}
-                required={header.isEditable}
-                disabled={!header.isEditable}
-                label={header.text}
-                defaultValue={getDisplayedValue({
-                  data: customer,
-                  header,
-                })}
-                error={!!errorMessage}
-                helperText={errorMessage ? errorMessage : ""}
-                onChange={(e) => setCustomerName(e.target.value)}
-              />
-            ))
+          {mode === "edit" ? (
+            customerHeaders.map((header) =>
+              customerId === customer.id ? (
+                <TextField
+                  key={`field: ${header.prop}`}
+                  id={header.prop}
+                  required={header.isEditable}
+                  disabled={!header.isEditable}
+                  label={header.text}
+                  defaultValue={getDisplayedValue({
+                    data: customer,
+                    header,
+                  })}
+                  error={!!errorMessage}
+                  helperText={errorMessage ? errorMessage : ""}
+                  onChange={(e) => setCustomerName(e.target.value)}
+                />
+              ) : null
+            )
           ) : (
             <TextField
               id="name"
@@ -104,7 +113,7 @@ const CustomerEdit = ({
             />
           )}
         </CustomerProfileWrapper>
-        {mode === "edit" && customer ? (
+        {mode === "edit" ? (
           <FormControls
             cancelLink="/customer"
             submitValue={customerName}
