@@ -38,7 +38,7 @@ const CustomerDetails = ({
 
   useEffect(() => {
     handleCustomerLoad();
-  }, []);
+  }, [customerId]);
 
   return (
     <div className="customer__profile">

@@ -55,7 +55,7 @@ const CustomerEdit = ({
 
   useEffect(() => {
     handleCustomerLoad();
-  }, []);
+  }, [customerId]);
 
   const handleCustomerCreation = async (name: string) => {
     const response =
