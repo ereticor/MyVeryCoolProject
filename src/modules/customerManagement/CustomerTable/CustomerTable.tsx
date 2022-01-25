@@ -8,6 +8,8 @@ import ModuleHeader from "modules/shared/ModuleHeader";
 import DataTable from "components/DataTable";
 import ProgressSpinner from "components/ProgressSpinner";
 
+import useDebounce from "hooks/useDebounce";
+
 import customerHeaders from "helpers/getDisplayedValue/definedHeaders/customerHeaders";
 
 import { IGetCustomerPage } from "interfaces/customer.service";
@@ -33,6 +35,8 @@ const CustomerTable = ({
   const [searchName, setSearch] = useState(
     searchParams.get("searchName") || ""
   );
+  const debouncedSearchName = useDebounce(searchName, 700);
+
   const [page, setPage] = useState(
     (searchParams.get("page") as unknown as number) || 1
   );
@@ -79,7 +83,7 @@ const CustomerTable = ({
     }
 
     fetchCustomerList({ page, pageSize, search: searchName });
-  }, [page, pageSize, searchName]);
+  }, [page, pageSize, debouncedSearchName]);
 
   const handleIsSearchOpened = () => {
     setIsSearchOpened((prev) => !prev);
