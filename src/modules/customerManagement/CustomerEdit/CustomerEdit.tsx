@@ -75,6 +75,8 @@ const CustomerEdit = ({
     }
   };
 
+  const isEditMode = mode === "edit";
+
   const EditModeElement = (
     <>
       <CustomerDetailsWrapper>
@@ -134,11 +136,11 @@ const CustomerEdit = ({
   return (
     <div className="customer__create">
       <ModuleHeader
-        title={mode === "edit" ? "update customer" : "create customer"}
+        title={isEditMode ? "update customer" : "create customer"}
         backLink={"/customer"}
       />
       <form className="customer__form">
-        {mode === "edit" ? EditModeElement : NewModeElement}
+        {isEditMode ? EditModeElement : NewModeElement}
         <ProgressSpinner isLoading={isLoadingCustomer} />
       </form>
     </div>
