@@ -57,7 +57,7 @@ const CustomerEdit = ({
     handleCustomerLoad();
   }, [customerId]);
 
-  const handleCustomerCreation = async (name: string) => {
+  const handleCustomerCreate = async (name: string) => {
     const response =
       mode === "edit"
         ? await updateCustomer({
@@ -118,7 +118,7 @@ const CustomerEdit = ({
             cancelLink="/customer"
             submitValue={customerName}
             submitHandler={(value: unknown) =>
-              handleCustomerCreation(value as string)
+              handleCustomerCreate(value as string)
             }
           />
         ) : (
@@ -126,7 +126,7 @@ const CustomerEdit = ({
             cancelLink="/customer"
             submitValue={customerName}
             submitHandler={(value: unknown) =>
-              handleCustomerCreation(value as string)
+              handleCustomerCreate(value as string)
             }
             submitBtnText="submit"
             submitBtnClass="submit"
