@@ -1,8 +1,8 @@
 import customerDefaultAvatar from "assets/icons/customerDefault.svg";
 
-import "./CustomerProfileWrapper.scss";
+import "./CustomerDetailsWrapper.scss";
 
-const CustomerProfileWrapper = ({
+const CustomerDetailsWrapper = ({
   children,
 }: {
   children?: React.ReactNode;
@@ -15,4 +15,4 @@ const CustomerProfileWrapper = ({
   );
 };
 
-export default CustomerProfileWrapper;
+export default CustomerDetailsWrapper;

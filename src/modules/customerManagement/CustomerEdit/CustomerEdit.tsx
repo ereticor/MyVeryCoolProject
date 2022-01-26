@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { TextField } from "@material-ui/core";
 
 import ModuleHeader from "modules/shared/ModuleHeader";
-import CustomerProfileWrapper from "modules/customerManagement/CustomerProfileWrapper";
+import CustomerDetailsWrapper from "modules/customerManagement/CustomerDetailsWrapper";
 
 import FormFooter from "components/FormFooter";
 import ProgressSpinner from "components/ProgressSpinner";
@@ -82,7 +82,7 @@ const CustomerEdit = ({
         backLink={"/customer"}
       />
       <form className="customer__form">
-        <CustomerProfileWrapper>
+        <CustomerDetailsWrapper>
           {mode === "edit" ? (
             customerHeaders.map((header) =>
               customerId === customer.id ? (
@@ -112,7 +112,7 @@ const CustomerEdit = ({
               onChange={(e) => setCustomerName(e.target.value)}
             />
           )}
-        </CustomerProfileWrapper>
+        </CustomerDetailsWrapper>
         {mode === "edit" ? (
           <FormFooter
             cancelLink="/customer"

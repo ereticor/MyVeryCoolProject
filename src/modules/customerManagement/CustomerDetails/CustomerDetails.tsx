@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import ModuleHeader from "modules/shared/ModuleHeader";
-import CustomerProfileWrapper from "modules/customerManagement/CustomerProfileWrapper";
+import CustomerDetailsWrapper from "modules/customerManagement/CustomerDetailsWrapper";
 
 import FormFooter from "components/FormFooter";
 import ProgressSpinner from "components/ProgressSpinner";
@@ -48,7 +48,7 @@ const CustomerDetails = ({
       />
       {customer ? (
         <>
-          <CustomerProfileWrapper>
+          <CustomerDetailsWrapper>
             {customerHeaders.map((header, index) => (
               <div
                 key={`field: ${header.prop} ${index}`}
@@ -63,7 +63,7 @@ const CustomerDetails = ({
                 </p>
               </div>
             ))}
-          </CustomerProfileWrapper>
+          </CustomerDetailsWrapper>
           <FormFooter
             cancelHandler={() => deleteCustomer(customer.id)}
             cancelBtnText="delete"
