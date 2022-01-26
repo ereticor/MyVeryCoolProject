@@ -4,7 +4,7 @@ import {
   getCustomerTypes,
   getAllCustomersTypes,
   getCustomersPageTypes,
-  changeCustomerTypes,
+  updateCustomerTypes,
   createCustomerTypes,
   deleteCustomerTypes,
 } from "./actionTypes";
@@ -30,7 +30,7 @@ const CustomerSlice = createSlice({
           getCustomerTypes.start,
           getAllCustomersTypes.start,
           getCustomersPageTypes.start,
-          changeCustomerTypes.start,
+          updateCustomerTypes.start,
           createCustomerTypes.start,
           deleteCustomerTypes.start
         ),
@@ -41,7 +41,7 @@ const CustomerSlice = createSlice({
       .addMatcher(
         isAnyOfMatch(
           getCustomerTypes.success,
-          changeCustomerTypes.success,
+          updateCustomerTypes.success,
           createCustomerTypes.success,
           deleteCustomerTypes.success
         ),
@@ -71,7 +71,7 @@ const CustomerSlice = createSlice({
           getCustomerTypes.success,
           getAllCustomersTypes.success,
           getCustomersPageTypes.success,
-          changeCustomerTypes.success,
+          updateCustomerTypes.success,
           createCustomerTypes.success,
           deleteCustomerTypes.success
         ),
@@ -84,7 +84,7 @@ const CustomerSlice = createSlice({
           getCustomerTypes.error,
           getAllCustomersTypes.error,
           getCustomersPageTypes.error,
-          changeCustomerTypes.error,
+          updateCustomerTypes.error,
           createCustomerTypes.error,
           deleteCustomerTypes.error
         ),

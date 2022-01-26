@@ -5,7 +5,7 @@ import CustomerService from "services/customer.service";
 import { defaultAction } from "helpers/defaultAction";
 
 import {
-  IChangeCustomer,
+  IUpdateCustomer,
   ICreateCustomer,
   IDeleteCustomer,
   IGetCustomer,
@@ -39,10 +39,10 @@ export const getCustomer = (customerId: IGetCustomer) => {
   });
 };
 
-export const changeCustomer = ({ customerId, newData }: IChangeCustomer) => {
+export const updateCustomer = ({ customerId, newData }: IUpdateCustomer) => {
   return defaultAction({
-    apiFunction: () => CustomerService.changeCustomer({ customerId, newData }),
-    types: types.changeCustomerTypes,
+    apiFunction: () => CustomerService.updateCustomer({ customerId, newData }),
+    types: types.updateCustomerTypes,
   });
 };
 

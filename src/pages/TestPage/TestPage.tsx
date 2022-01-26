@@ -13,7 +13,7 @@ import "./TestPage.scss";
 const TestPage = ({
   getPage,
   getCustomer,
-  changeCustomer,
+  updateCustomer,
   deleteCustomer,
   createCustomer,
   getAllCustomers,
@@ -22,7 +22,7 @@ const TestPage = ({
 }: {
   getPage: any;
   getCustomer: any;
-  changeCustomer: any;
+  updateCustomer: any;
   deleteCustomer: any;
   createCustomer: any;
   getAllCustomers: any;
@@ -52,8 +52,8 @@ const TestPage = ({
     console.log(newData);
   };
 
-  const handleChangeCustomer = async () => {
-    const newData = await changeCustomer({
+  const handleUpdateCustomer = async () => {
+    const newData = await updateCustomer({
       customerId: "75839b68-2f9d-4613-abb7-f769edfb9dce",
       newData: {
         name: "neo 300",
@@ -99,8 +99,8 @@ const TestPage = ({
       <Button onClick={handleCreateCustomer} className="test-btn">
         CreateCustomer
       </Button>
-      <Button onClick={handleChangeCustomer} className="test-btn">
-        ChangeCustomer
+      <Button onClick={handleUpdateCustomer} className="test-btn">
+        UpdateCustomer
       </Button>
       <Button onClick={handleDeleteCustomer} className="test-btn">
         DeleteCustomer

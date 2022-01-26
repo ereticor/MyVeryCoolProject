@@ -7,7 +7,7 @@ import { ActionCreators, selectors } from "store/reducers/customer";
 import TestPage from "./TestPage";
 
 import {
-  IChangeCustomer,
+  IUpdateCustomer,
   ICreateCustomer,
   IDeleteCustomer,
   IGetCustomer,
@@ -25,8 +25,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     ActionCreators.getCustomer(args)(dispatch),
   deleteCustomer: (args: IDeleteCustomer) =>
     ActionCreators.deleteCustomer(args)(dispatch),
-  changeCustomer: (args: IChangeCustomer) =>
-    ActionCreators.changeCustomer(args)(dispatch),
+  updateCustomer: (args: IUpdateCustomer) =>
+    ActionCreators.updateCustomer(args)(dispatch),
   createCustomer: (args: ICreateCustomer) =>
     ActionCreators.createCustomer(args)(dispatch),
   getAllCustomers: () => ActionCreators.getAllCustomers()(dispatch),

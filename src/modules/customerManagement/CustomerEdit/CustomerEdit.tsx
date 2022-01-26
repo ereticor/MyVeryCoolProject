@@ -13,7 +13,7 @@ import customerHeaders from "helpers/getDisplayedValue/definedHeaders/customerHe
 
 import ICustomer from "interfaces/Customer";
 import {
-  IChangeCustomer,
+  IUpdateCustomer,
   ICreateCustomer,
   IGetCustomer,
 } from "interfaces/customer.service";
@@ -32,7 +32,7 @@ interface ICustomerEdit {
   isLoadingCustomer: boolean;
   getCustomer: (args: IGetCustomer) => void;
   createCustomer: (args: ICreateCustomer) => Promise<unknown>;
-  changeCustomer: (args: IChangeCustomer) => Promise<unknown>;
+  updateCustomer: (args: IUpdateCustomer) => Promise<unknown>;
 }
 
 const CustomerEdit = ({
@@ -41,7 +41,7 @@ const CustomerEdit = ({
   isLoadingCustomer,
   getCustomer,
   createCustomer,
-  changeCustomer,
+  updateCustomer,
 }: ICustomerEdit) => {
   const { customerId } = useParams();
   const [customerName, setCustomerName] = useState(customer.name || "");
@@ -60,7 +60,7 @@ const CustomerEdit = ({
   const handleCustomerCreation = async (name: string) => {
     const response =
       mode === "edit"
-        ? await changeCustomer({
+        ? await updateCustomer({
             customerId: customer.id,
             newData: {
               name,

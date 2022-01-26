@@ -6,7 +6,7 @@ export type ICreateCustomer = ICustomer["name"];
 
 export type IDeleteCustomer = IGetCustomer;
 
-export interface IChangeCustomer {
+export interface IUpdateCustomer {
   customerId: IGetCustomer;
   newData: Partial<ICustomer>;
 }

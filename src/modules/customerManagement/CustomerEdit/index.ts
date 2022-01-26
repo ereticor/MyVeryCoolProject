@@ -7,7 +7,7 @@ import { ActionCreators, selectors } from "store/reducers/customer";
 import CustomerEdit from "./CustomerEdit";
 
 import {
-  IChangeCustomer,
+  IUpdateCustomer,
   ICreateCustomer,
   IGetCustomer,
 } from "interfaces/customer.service";
@@ -20,8 +20,8 @@ const selector = createStructuredSelector({
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   getCustomer: (args: IGetCustomer) =>
     ActionCreators.getCustomer(args)(dispatch),
-  changeCustomer: (args: IChangeCustomer) =>
-    ActionCreators.changeCustomer(args)(dispatch),
+  updateCustomer: (args: IUpdateCustomer) =>
+    ActionCreators.updateCustomer(args)(dispatch),
   createCustomer: (args: ICreateCustomer) =>
     ActionCreators.createCustomer(args)(dispatch),
 });

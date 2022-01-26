@@ -16,7 +16,7 @@ export const getCustomerTypes = {
   error: "GET_CUSTOMER_FAILURE",
 };
 
-export const changeCustomerTypes = {
+export const updateCustomerTypes = {
   start: "PUT_CUSTOMER_REQUEST",
   success: "PUT_CUSTOMER_SUCCESS",
   error: "PUT_CUSTOMER_FAILURE",

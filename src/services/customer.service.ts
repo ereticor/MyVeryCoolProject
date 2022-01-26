@@ -1,7 +1,7 @@
 import ApiService from "./api.service";
 
 import {
-  IChangeCustomer,
+  IUpdateCustomer,
   ICreateCustomer,
   IDeleteCustomer,
   IGetCustomer,
@@ -41,7 +41,7 @@ export default class CustomerService extends ApiService {
     });
   }
 
-  static async changeCustomer({ customerId, newData }: IChangeCustomer) {
+  static async updateCustomer({ customerId, newData }: IUpdateCustomer) {
     return super.put({
       api: `customer/${customerId}`,
       body: { ...newData },
