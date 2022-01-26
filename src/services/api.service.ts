@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import capitalizeString from "helpers/capitalizeString";
+import capitalizeFirstLetter from "helpers/capitalizeFirstLetter";
 
 import { IError, IPostRequest, IRequest } from "interfaces/api.service";
 
@@ -99,7 +99,7 @@ export default class ApiService {
     for (const param in paramObj) {
       if (paramObj[param] !== "") {
         result.push(
-          encodeURIComponent(capitalizeString(param)) +
+          encodeURIComponent(capitalizeFirstLetter(param)) +
             "=" +
             encodeURIComponent(paramObj[param])
         );
