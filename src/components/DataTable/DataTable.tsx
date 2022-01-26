@@ -24,7 +24,7 @@ interface IDataTable {
   handlePageChange: (newPage: number) => void;
   handlePageSizeChange: (newSize: number) => void;
   handleRowClick?: (id: number | string) => void;
-  tableRowActions?: {
+  rowActions?: {
     type: string;
     handler: Exclude<IDataTable["handleRowClick"], undefined>;
   }[];
@@ -39,7 +39,7 @@ const DataTable = ({
   handlePageChange,
   handlePageSizeChange,
   handleRowClick,
-  tableRowActions,
+  rowActions,
 }: IDataTable) => {
   return (
     <Table className="table">
@@ -51,8 +51,8 @@ const DataTable = ({
                 {header.text}
               </TableCell>
             ))}
-            {tableRowActions
-              ? tableRowActions.map((action, index) => {
+            {rowActions
+              ? rowActions.map((action, index) => {
                   return (
                     <th
                       data-action={action.type}
@@ -76,8 +76,8 @@ const DataTable = ({
                 handleRowClick ? handleRowClick(data.id) : false
               }
               rowActions={
-                tableRowActions
-                  ? tableRowActions.map((rowAction) => ({
+                rowActions
+                  ? rowActions.map((rowAction) => ({
                       type: rowAction.type,
                       handler: () => rowAction.handler(data.id),
                     }))

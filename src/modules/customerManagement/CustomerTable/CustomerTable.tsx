@@ -134,7 +134,7 @@ const CustomerTable = ({
           handleRowClick={(customerId) => {
             navigate(`/customer/${customerId}`);
           }}
-          tableRowActions={rowActions}
+          rowActions={rowActions}
         />
       ) : null}
       <ProgressSpinner isLoading={isLoadingCustomer} />
