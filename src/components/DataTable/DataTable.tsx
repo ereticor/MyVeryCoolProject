@@ -20,6 +20,7 @@ interface IDataTable {
   tableHeaders: Array<ITableHeader>;
   page: number;
   pageSize: number;
+  pageSizeOptions?: number[];
   dataCount: number;
   handlePageChange: (newPage: number) => void;
   handlePageSizeChange: (newSize: number) => void;
@@ -35,6 +36,7 @@ const DataTable = ({
   tableHeaders,
   page,
   pageSize,
+  pageSizeOptions = [10, 20, 30],
   dataCount,
   handlePageChange,
   handlePageSizeChange,
@@ -89,7 +91,7 @@ const DataTable = ({
       </div>
       <TableFooter>
         <TablePagination
-          rowsPerPageOptions={[10, 20, 30]}
+          rowsPerPageOptions={pageSizeOptions}
           rowsPerPage={+pageSize}
           onRowsPerPageChange={(e) => handlePageSizeChange(+e.target.value)}
           page={page - 1}
