@@ -28,28 +28,36 @@ const FormFooter = ({
   submitBtnClass,
   submitLink,
 }: IFormFooter) => {
+  const CancelBtnElement = (
+    <Button
+      className={cancelBtnClass || "cancel"}
+      onClick={() => (cancelHandler ? cancelHandler(cancelValue) : false)}
+    >
+      {cancelLink ? (
+        <Link to={cancelLink}>{cancelBtnText || "Cancel"}</Link>
+      ) : (
+        cancelBtnText || "Cancel"
+      )}
+    </Button>
+  );
+
+  const SubmitBtnElement = (
+    <Button
+      className={submitBtnClass || "save"}
+      onClick={() => (submitHandler ? submitHandler(submitValue) : false)}
+    >
+      {submitLink ? (
+        <Link to={submitLink}>{submitBtnText || "Cancel"}</Link>
+      ) : (
+        submitBtnText || "save"
+      )}
+    </Button>
+  );
+
   return (
     <div className="form__controls">
-      <Button
-        className={cancelBtnClass || "cancel"}
-        onClick={() => (cancelHandler ? cancelHandler(cancelValue) : false)}
-      >
-        {cancelLink ? (
-          <Link to={cancelLink}>{cancelBtnText || "Cancel"}</Link>
-        ) : (
-          cancelBtnText || "Cancel"
-        )}
-      </Button>
-      <Button
-        className={submitBtnClass || "save"}
-        onClick={() => (submitHandler ? submitHandler(submitValue) : false)}
-      >
-        {submitLink ? (
-          <Link to={submitLink}>{submitBtnText || "Cancel"}</Link>
-        ) : (
-          submitBtnText || "save"
-        )}
-      </Button>
+      {CancelBtnElement}
+      {SubmitBtnElement}
     </div>
   );
 };

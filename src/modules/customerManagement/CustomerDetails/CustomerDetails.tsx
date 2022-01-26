@@ -40,42 +40,42 @@ const CustomerDetails = ({
     handleCustomerLoad();
   }, [customerId]);
 
+  const CustomerDetailsElement = (
+    <>
+      <CustomerDetailsWrapper>
+        {customerHeaders.map((header, index) => (
+          <div
+            key={`field: ${header.prop} ${index}`}
+            className="customer__field"
+          >
+            <p className="field__prop">{header.text}</p>
+            <p className="field__value">
+              {getDisplayedValue({
+                data: customer,
+                header,
+              })}
+            </p>
+          </div>
+        ))}
+      </CustomerDetailsWrapper>
+      <FormFooter
+        cancelHandler={() => deleteCustomer(customer.id)}
+        cancelBtnText="delete"
+        cancelBtnClass="delete"
+        submitLink={`/customer/${customer.id}/edit`}
+        submitBtnText="edit"
+        submitBtnClass="edit"
+      />
+    </>
+  );
+
   return (
     <div className="customer__profile">
       <ModuleHeader
         title={customer?.name || "unknown customer"}
         backLink={"/customer"}
       />
-      {customer ? (
-        <>
-          <CustomerDetailsWrapper>
-            {customerHeaders.map((header, index) => (
-              <div
-                key={`field: ${header.prop} ${index}`}
-                className="customer__field"
-              >
-                <p className="field__prop">{header.text}</p>
-                <p className="field__value">
-                  {getDisplayedValue({
-                    data: customer,
-                    header,
-                  })}
-                </p>
-              </div>
-            ))}
-          </CustomerDetailsWrapper>
-          <FormFooter
-            cancelHandler={() => deleteCustomer(customer.id)}
-            cancelBtnText="delete"
-            cancelBtnClass="delete"
-            submitLink={`/customer/${customer.id}/edit`}
-            submitBtnText="edit"
-            submitBtnClass="edit"
-          />
-        </>
-      ) : (
-        <div>no data available</div>
-      )}
+      {customer ? CustomerDetailsElement : <div>no data available</div>}
       <ProgressSpinner isLoading={isLoadingCustomer} />
     </div>
   );

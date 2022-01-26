@@ -75,6 +75,62 @@ const CustomerEdit = ({
     }
   };
 
+  const EditModeElement = (
+    <>
+      <CustomerDetailsWrapper>
+        {customerHeaders.map((header) =>
+          customerId === customer.id ? (
+            <TextField
+              key={`field: ${header.prop}`}
+              id={header.prop}
+              required={header.isEditable}
+              disabled={!header.isEditable}
+              label={header.text}
+              defaultValue={getDisplayedValue({
+                data: customer,
+                header,
+              })}
+              error={!!errorMessage}
+              helperText={errorMessage ? errorMessage : ""}
+              onChange={(e) => setCustomerName(e.target.value)}
+            />
+          ) : null
+        )}
+      </CustomerDetailsWrapper>
+      <FormFooter
+        cancelLink="/customer"
+        submitValue={customerName}
+        submitHandler={(value: unknown) =>
+          handleCustomerCreate(value as string)
+        }
+      />
+    </>
+  );
+
+  const NewModeElement = (
+    <>
+      <CustomerDetailsWrapper>
+        <TextField
+          id="name"
+          required
+          label="customer name"
+          error={!!errorMessage}
+          helperText={errorMessage ? errorMessage : ""}
+          onChange={(e) => setCustomerName(e.target.value)}
+        />
+      </CustomerDetailsWrapper>
+      <FormFooter
+        cancelLink="/customer"
+        submitValue={customerName}
+        submitHandler={(value: unknown) =>
+          handleCustomerCreate(value as string)
+        }
+        submitBtnText="submit"
+        submitBtnClass="submit"
+      />
+    </>
+  );
+
   return (
     <div className="customer__create">
       <ModuleHeader
@@ -82,56 +138,7 @@ const CustomerEdit = ({
         backLink={"/customer"}
       />
       <form className="customer__form">
-        <CustomerDetailsWrapper>
-          {mode === "edit" ? (
-            customerHeaders.map((header) =>
-              customerId === customer.id ? (
-                <TextField
-                  key={`field: ${header.prop}`}
-                  id={header.prop}
-                  required={header.isEditable}
-                  disabled={!header.isEditable}
-                  label={header.text}
-                  defaultValue={getDisplayedValue({
-                    data: customer,
-                    header,
-                  })}
-                  error={!!errorMessage}
-                  helperText={errorMessage ? errorMessage : ""}
-                  onChange={(e) => setCustomerName(e.target.value)}
-                />
-              ) : null
-            )
-          ) : (
-            <TextField
-              id="name"
-              required
-              label="customer name"
-              error={!!errorMessage}
-              helperText={errorMessage ? errorMessage : ""}
-              onChange={(e) => setCustomerName(e.target.value)}
-            />
-          )}
-        </CustomerDetailsWrapper>
-        {mode === "edit" ? (
-          <FormFooter
-            cancelLink="/customer"
-            submitValue={customerName}
-            submitHandler={(value: unknown) =>
-              handleCustomerCreate(value as string)
-            }
-          />
-        ) : (
-          <FormFooter
-            cancelLink="/customer"
-            submitValue={customerName}
-            submitHandler={(value: unknown) =>
-              handleCustomerCreate(value as string)
-            }
-            submitBtnText="submit"
-            submitBtnClass="submit"
-          />
-        )}
+        {mode === "edit" ? EditModeElement : NewModeElement}
         <ProgressSpinner isLoading={isLoadingCustomer} />
       </form>
     </div>
