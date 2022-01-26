@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 
 import "./FormFooter.scss";
@@ -8,12 +7,10 @@ interface IFormFooter {
   cancelHandler?: (value: unknown) => void | Promise<void>;
   cancelBtnText?: string;
   cancelBtnClass?: "submit" | "delete" | "edit" | "cancel" | "save";
-  cancelLink?: string;
   submitValue?: unknown;
   submitHandler?: (value: unknown) => void | Promise<void>;
   submitBtnText?: string;
   submitBtnClass?: "submit" | "delete" | "edit" | "cancel" | "save";
-  submitLink?: string;
 }
 
 const FormFooter = ({
@@ -21,23 +18,17 @@ const FormFooter = ({
   cancelHandler,
   cancelBtnText,
   cancelBtnClass,
-  cancelLink,
   submitValue,
   submitHandler,
   submitBtnText,
   submitBtnClass,
-  submitLink,
 }: IFormFooter) => {
   const CancelBtnElement = (
     <Button
       className={cancelBtnClass || "cancel"}
       onClick={() => (cancelHandler ? cancelHandler(cancelValue) : false)}
     >
-      {cancelLink ? (
-        <Link to={cancelLink}>{cancelBtnText || "Cancel"}</Link>
-      ) : (
-        cancelBtnText || "Cancel"
-      )}
+      {cancelBtnText || "Cancel"}
     </Button>
   );
 
@@ -46,18 +37,14 @@ const FormFooter = ({
       className={submitBtnClass || "save"}
       onClick={() => (submitHandler ? submitHandler(submitValue) : false)}
     >
-      {submitLink ? (
-        <Link to={submitLink}>{submitBtnText || "Cancel"}</Link>
-      ) : (
-        submitBtnText || "save"
-      )}
+      {submitBtnText || "save"}
     </Button>
   );
 
   return (
     <div className="form__controls">
-      {CancelBtnElement}
-      {SubmitBtnElement}
+      {cancelHandler ? CancelBtnElement : null}
+      {submitHandler ? SubmitBtnElement : null}
     </div>
   );
 };

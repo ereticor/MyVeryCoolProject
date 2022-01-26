@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import ModuleHeader from "modules/shared/ModuleHeader";
 import CustomerDetailsWrapper from "modules/customerManagement/CustomerDetailsWrapper";
@@ -28,6 +28,8 @@ const CustomerDetails = ({
   getCustomer,
   deleteCustomer,
 }: ICustomerDetails) => {
+  const navigate = useNavigate();
+
   const { customerId } = useParams();
 
   const handleCustomerLoad = async () => {
@@ -62,7 +64,9 @@ const CustomerDetails = ({
         cancelHandler={() => deleteCustomer(customer.id)}
         cancelBtnText="delete"
         cancelBtnClass="delete"
-        submitLink={`/customer/${customer.id}/edit`}
+        submitHandler={() => {
+          navigate(`/customer/${customer.id}/edit`);
+        }}
         submitBtnText="edit"
         submitBtnClass="edit"
       />

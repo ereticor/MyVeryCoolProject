@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { TextField } from "@material-ui/core";
 
 import ModuleHeader from "modules/shared/ModuleHeader";
@@ -43,6 +43,8 @@ const CustomerEdit = ({
   createCustomer,
   updateCustomer,
 }: ICustomerEdit) => {
+  const navigate = useNavigate();
+
   const { customerId } = useParams();
   const [customerName, setCustomerName] = useState(customer.name || "");
   const [errorMessage, setErrorMessage] = useState("");
@@ -100,7 +102,9 @@ const CustomerEdit = ({
         )}
       </CustomerDetailsWrapper>
       <FormFooter
-        cancelLink="/customer"
+        cancelHandler={() => {
+          navigate("/customer");
+        }}
         submitValue={customerName}
         submitHandler={(value: unknown) =>
           handleCustomerCreate(value as string)
@@ -122,7 +126,9 @@ const CustomerEdit = ({
         />
       </CustomerDetailsWrapper>
       <FormFooter
-        cancelLink="/customer"
+        cancelHandler={() => {
+          navigate("/customer");
+        }}
         submitValue={customerName}
         submitHandler={(value: unknown) =>
           handleCustomerCreate(value as string)
