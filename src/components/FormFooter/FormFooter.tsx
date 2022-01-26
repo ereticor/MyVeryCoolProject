@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 
-import "./FormControls.scss";
+import "./FormFooter.scss";
 
-interface IFormControls {
+interface IFormFooter {
   cancelValue?: unknown;
   cancelHandler?: (value: unknown) => void | Promise<void>;
   cancelBtnText?: string;
@@ -16,7 +16,7 @@ interface IFormControls {
   submitLink?: string;
 }
 
-const FormControls = ({
+const FormFooter = ({
   cancelValue,
   cancelHandler,
   cancelBtnText,
@@ -27,7 +27,7 @@ const FormControls = ({
   submitBtnText,
   submitBtnClass,
   submitLink,
-}: IFormControls) => {
+}: IFormFooter) => {
   return (
     <div className="form__controls">
       <Button
@@ -54,4 +54,4 @@ const FormControls = ({
   );
 };
 
-export default FormControls;
+export default FormFooter;

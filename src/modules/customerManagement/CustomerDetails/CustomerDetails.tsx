@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import ModuleHeader from "modules/shared/ModuleHeader";
 import CustomerProfileWrapper from "modules/customerManagement/CustomerProfileWrapper";
 
-import FormControls from "components/FormControls";
+import FormFooter from "components/FormFooter";
 import ProgressSpinner from "components/ProgressSpinner";
 
 import getDisplayedValue from "helpers/getDisplayedValue";
@@ -64,7 +64,7 @@ const CustomerDetails = ({
               </div>
             ))}
           </CustomerProfileWrapper>
-          <FormControls
+          <FormFooter
             cancelHandler={() => deleteCustomer(customer.id)}
             cancelBtnText="delete"
             cancelBtnClass="delete"

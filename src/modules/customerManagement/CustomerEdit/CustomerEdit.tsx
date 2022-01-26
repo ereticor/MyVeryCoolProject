@@ -5,7 +5,7 @@ import { TextField } from "@material-ui/core";
 import ModuleHeader from "modules/shared/ModuleHeader";
 import CustomerProfileWrapper from "modules/customerManagement/CustomerProfileWrapper";
 
-import FormControls from "components/FormControls";
+import FormFooter from "components/FormFooter";
 import ProgressSpinner from "components/ProgressSpinner";
 
 import getDisplayedValue from "helpers/getDisplayedValue";
@@ -114,7 +114,7 @@ const CustomerEdit = ({
           )}
         </CustomerProfileWrapper>
         {mode === "edit" ? (
-          <FormControls
+          <FormFooter
             cancelLink="/customer"
             submitValue={customerName}
             submitHandler={(value: unknown) =>
@@ -122,7 +122,7 @@ const CustomerEdit = ({
             }
           />
         ) : (
-          <FormControls
+          <FormFooter
             cancelLink="/customer"
             submitValue={customerName}
             submitHandler={(value: unknown) =>
