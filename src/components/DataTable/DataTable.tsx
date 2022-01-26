@@ -21,7 +21,7 @@ interface IDataTable {
   page: number;
   pageSize: number;
   pageSizeOptions?: number[];
-  dataCount: number;
+  totalCount: number;
   handlePageChange: (newPage: number) => void;
   handlePageSizeChange: (newSize: number) => void;
   handleRowClick?: (id: number | string) => void;
@@ -37,7 +37,7 @@ const DataTable = ({
   page,
   pageSize,
   pageSizeOptions = [10, 20, 30],
-  dataCount,
+  totalCount,
   handlePageChange,
   handlePageSizeChange,
   handleRowClick,
@@ -96,7 +96,7 @@ const DataTable = ({
           onRowsPerPageChange={(e) => handlePageSizeChange(+e.target.value)}
           page={page - 1}
           onPageChange={(e, newPage) => handlePageChange(newPage + 1)}
-          count={dataCount}
+          count={totalCount}
         />
       </TableFooter>
     </Table>

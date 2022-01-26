@@ -128,7 +128,7 @@ const CustomerTable = ({
           tableHeaders={customerHeaders}
           page={page}
           pageSize={pageSize}
-          dataCount={customers.totalCount}
+          totalCount={customers.totalCount}
           handlePageChange={handlePageChange}
           handlePageSizeChange={handlePageSizeChange}
           handleRowClick={(customerId) => {
