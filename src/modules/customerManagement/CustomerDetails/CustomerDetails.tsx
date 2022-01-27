@@ -34,7 +34,7 @@ const CustomerDetails = ({
   const { customerId } = useParams();
 
   const handleCustomerLoad = async () => {
-    if (customerId && customerId !== customer.id) {
+    if (customerId && customerId !== customer?.id) {
       getCustomer(customerId);
     }
   };

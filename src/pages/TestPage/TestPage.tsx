@@ -43,18 +43,21 @@ const TestPage = ({
   };
 
   const handleGetCustomer = async () => {
-    const newData = await getCustomer("75839b68-2f9d-4613-abb7-f769edfb9dce");
+    const newData = await getCustomer("26c38621-e8c6-4565-a2bb-83ba25372d1e");
     console.log(newData);
   };
 
   const handleCreateCustomer = async () => {
-    const newData = await createCustomer("some-very-uniq-name");
+    const newData = await createCustomer({
+      name: "some-very-uniq-name",
+      sapCode: 1337,
+    });
     console.log(newData);
   };
 
   const handleUpdateCustomer = async () => {
     const newData = await updateCustomer({
-      customerId: "75839b68-2f9d-4613-abb7-f769edfb9dce",
+      customerId: "26c38621-e8c6-4565-a2bb-83ba25372d1e",
       newData: {
         name: "neo 300",
       },
@@ -64,7 +67,7 @@ const TestPage = ({
 
   const handleDeleteCustomer = async () => {
     const newData = await deleteCustomer(
-      "75839b68-2f9d-4613-abb7-f769edfb9dce"
+      "26c38621-e8c6-4565-a2bb-83ba25372d1e"
     );
     console.log(newData);
   };

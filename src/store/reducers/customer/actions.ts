@@ -53,9 +53,9 @@ export const deleteCustomer = (customerId: IDeleteCustomer) => {
   });
 };
 
-export const createCustomer = (customerName: ICreateCustomer) => {
+export const createCustomer = (newCustomer: ICreateCustomer) => {
   return defaultAction({
-    apiFunction: () => CustomerService.createCustomer(customerName),
+    apiFunction: () => CustomerService.createCustomer(newCustomer),
     types: types.createCustomerTypes,
   });
 };

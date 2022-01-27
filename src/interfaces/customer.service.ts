@@ -2,7 +2,7 @@ import ICustomer from "interfaces/Customer";
 
 export type IGetCustomer = ICustomer["id"];
 
-export type ICreateCustomer = ICustomer["name"];
+export type ICreateCustomer = Partial<ICustomer>;
 
 export type IDeleteCustomer = IGetCustomer;
 

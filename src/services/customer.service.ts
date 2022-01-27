@@ -33,10 +33,10 @@ export default class CustomerService extends ApiService {
     return super.get({ api: `customer/${customerId}`, options: {} });
   }
 
-  static async createCustomer(customerName: ICreateCustomer) {
+  static async createCustomer(newCustomer: ICreateCustomer) {
     return super.post({
       api: `customer`,
-      body: { name: customerName },
+      body: { ...newCustomer },
       options: {},
     });
   }

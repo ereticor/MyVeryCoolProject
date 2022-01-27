@@ -47,11 +47,13 @@ const CustomerEdit = ({
   const navigate = useNavigate();
 
   const { customerId } = useParams();
-  const [customerName, setCustomerName] = useState(customer.name || "");
+  const [customerData, setCustomerData] = useState<Partial<ICustomer>>(
+    customer || {}
+  );
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleCustomerLoad = async () => {
-    if (customerId && customerId !== customer.id) {
+    if (customerId && customerId !== customer?.id) {
       getCustomer(customerId);
     }
   };
@@ -60,16 +62,21 @@ const CustomerEdit = ({
     handleCustomerLoad();
   }, [customerId]);
 
-  const handleCustomerCreate = async (name: string) => {
-    const response =
-      mode === "edit"
-        ? await updateCustomer({
-            customerId: customer.id,
-            newData: {
-              name,
-            },
-          })
-        : await createCustomer(name);
+  const handleCustomerCreate = async (newData: Partial<ICustomer>) => {
+    const response = await createCustomer(newData);
+    const err = response as IResponseError;
+    if (err.status > 399) {
+      setErrorMessage(err.errors.Name[0]);
+    } else {
+      setErrorMessage("");
+    }
+  };
+
+  const handleCustomerUpdate = async (newData: Partial<ICustomer>) => {
+    const response = await updateCustomer({
+      customerId: customerId || customer.id,
+      newData,
+    });
     const err = response as IResponseError;
     if (err.status > 399) {
       setErrorMessage(err.errors.Name[0]);
@@ -84,7 +91,7 @@ const CustomerEdit = ({
     <>
       <CustomerDetailsWrapper>
         {customerHeaders.map((header) =>
-          customerId === customer.id ? (
+          customerId === customer?.id ? (
             <TextField
               key={`field: ${header.prop}`}
               id={header.prop}
@@ -97,7 +104,12 @@ const CustomerEdit = ({
               })}
               error={!!errorMessage}
               helperText={errorMessage ? errorMessage : ""}
-              onChange={(e) => setCustomerName(e.target.value)}
+              onChange={(e) =>
+                setCustomerData((prev) => ({
+                  ...prev,
+                  [header.prop]: e.target.value,
+                }))
+              }
             />
           ) : null
         )}
@@ -106,9 +118,9 @@ const CustomerEdit = ({
         cancelHandler={() => {
           navigate("/customer");
         }}
-        submitValue={customerName}
+        submitValue={customerData}
         submitHandler={(value: unknown) =>
-          handleCustomerCreate(value as string)
+          handleCustomerUpdate(value as Partial<ICustomer>)
         }
       />
     </>
@@ -117,22 +129,32 @@ const CustomerEdit = ({
   const NewModeElement = (
     <>
       <CustomerDetailsWrapper>
-        <TextField
-          id="name"
-          required
-          label="customer name"
-          error={!!errorMessage}
-          helperText={errorMessage ? errorMessage : ""}
-          onChange={(e) => setCustomerName(e.target.value)}
-        />
+        {customerHeaders.map((header) =>
+          header.isEditable ? (
+            <TextField
+              key={`field: ${header.prop}`}
+              id={header.prop}
+              required={header.isEditable}
+              label={header.text}
+              error={!!errorMessage}
+              helperText={errorMessage ? errorMessage : ""}
+              onChange={(e) =>
+                setCustomerData((prev) => ({
+                  ...prev,
+                  [header.prop]: e.target.value,
+                }))
+              }
+            />
+          ) : null
+        )}
       </CustomerDetailsWrapper>
       <FormFooter
         cancelHandler={() => {
           navigate("/customer");
         }}
-        submitValue={customerName}
+        submitValue={customerData}
         submitHandler={(value: unknown) =>
-          handleCustomerCreate(value as string)
+          handleCustomerCreate(value as Partial<ICustomer>)
         }
         submitBtnText="submit"
         submitBtnClass="submit"
