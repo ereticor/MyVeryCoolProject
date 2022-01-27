@@ -14,8 +14,22 @@
 
     .aside__btn {
       width: 100%;
+      background: $color-bg-global;
+      color: $color-text-grey;
+
+      &:hover {
+        background: $color-hover-secondary;
+        color: $color-primary-blue;
+      }
+    }
+
+    &.link_active > .aside__btn {
       background: $color-primary-blue;
       color: $color-white;
+
+      &:hover {
+        background: $color-secondary-blue;
+      }
     }
   }
 }

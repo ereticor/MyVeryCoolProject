@@ -1,0 +1,40 @@
+@import "styles/variables";
+
+.table {
+  background: inherit;
+
+  &__overflow {
+    display: table;
+    width: 100%;
+  }
+
+  .table__head {
+    .head__cell {
+      text-transform: capitalize;
+    }
+  }
+
+  .table__row {
+    cursor: pointer;
+
+    &:nth-of-type(2n) {
+      &:hover {
+        background: $color-border-dark-grey;
+      }
+    }
+
+    &:nth-of-type(2n + 1) {
+      background: $color-border-grey;
+
+      &:hover {
+        background: $color-border-dark-grey;
+      }
+    }
+  }
+
+  .action {
+    &_hidden {
+      opacity: 0;
+    }
+  }
+}

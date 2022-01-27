@@ -5,10 +5,10 @@ import { IAppCard } from "interfaces/app";
 import "./AppCard.scss";
 
 const AppCard = ({ app, className }: { app: IAppCard; className: string }) => {
-  const { name, description, keywords } = app;
+  const { name, pathName, description, keywords } = app;
 
   return (
-    <Link to={`/${name}`} className={`card ${className}`}>
+    <Link to={`/${pathName}`} className={`card ${className}`}>
       <div className="card__wrapper">
         <h3 className="card__name">{name}</h3>
         <p className="card__description">{description}</p>

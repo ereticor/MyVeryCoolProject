@@ -7,9 +7,9 @@ import "./Home.scss";
 const Home = ({ appList }: { appList: IAppList }) => {
   return (
     <div className="app__list">
-      {appList.map((item, index) => {
+      {appList.map((item) => {
         return (
-          <AppCard key={`app: ${index}`} app={item} className="app__card" />
+          <AppCard key={`app: ${item.name}`} app={item} className="app__card" />
         );
       })}
     </div>

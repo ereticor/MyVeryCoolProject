@@ -1,25 +1,52 @@
 import { Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import CustomerTable from "modules/customerManagement/CustomerTable";
+import CustomerEdit from "modules/customerManagement/CustomerEdit";
+import CustomerDetails from "modules/customerManagement/CustomerDetails";
+
+import Home from "pages/Home";
+import ErrorPage from "pages/ErrorPage";
+import TestPage from "pages/TestPage";
+
 import AppHeader from "components/AppHeader";
 import AsideNavigation from "components/AsideNavigation";
 
-import Home from "pages/Home";
-
 import appList from "constants/appList";
+import ProgressSpinner from "components/ProgressSpinner";
 
 const Router = () => {
   return (
-    <Suspense fallback={<div className="loading">Loading</div>}>
-      <AppHeader />
-      <main className="main">
-        <BrowserRouter>
+    <Suspense
+      fallback={
+        <div className="loading">
+          <h1>Loading</h1>
+          <ProgressSpinner isLoading={true} />
+        </div>
+      }
+    >
+      <BrowserRouter>
+        <AppHeader />
+        <main className="main">
           <Routes>
+            <Route
+              path="/customer/new"
+              element={<CustomerEdit mode={"new"} />}
+            />
+            <Route
+              path="/customer/:customerId/edit"
+              element={<CustomerEdit mode={"edit"} />}
+            />
+            <Route path="/customer/:customerId" element={<CustomerDetails />} />
+            <Route path="/customer/" element={<CustomerTable />} />
+            <Route path="/error/:message" element={<ErrorPage />} />
+            <Route path="/test" element={<TestPage />} />
             <Route path="/" element={<Home appList={appList} />} />
+            <Route path="*" element={<div>Lorem ipsum dolor sit amet.</div>} />
           </Routes>
           <AsideNavigation appList={appList} />
-        </BrowserRouter>
-      </main>
+        </main>
+      </BrowserRouter>
     </Suspense>
   );
 };

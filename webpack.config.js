@@ -5,14 +5,17 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const ESlintPlugin = require("eslint-webpack-plugin");
 
+const port = 3000;
+
 const devServer = (isDev) =>
   !isDev
     ? {}
     : {
         devServer: {
           open: true,
-          hot: true,
-          port: 3000,
+          hot: false,
+          liveReload: true,
+          port: port,
           historyApiFallback: true,
         },
       };
@@ -24,10 +27,11 @@ module.exports = ({ development }) => ({
   mode: development ? "development" : "production",
   devtool: development ? "inline-source-map" : false,
   entry: {
-    app: "./src/index.tsx",
+    app: path.resolve(__dirname, "src/index.tsx"),
   },
   output: {
     path: path.resolve(__dirname, "dist"),
+    publicPath: development ? `http://localhost:${port}/` : "",
     filename: "[name].[contenthash].js",
     assetModuleFilename: "assets/[hash][ext]",
   },
@@ -51,6 +55,7 @@ module.exports = ({ development }) => ({
   plugins: [
     ...eslintPlugin(development),
     new HtmlWebpackPlugin({
+      chunks: ["app"],
       title: "Platform",
       template: "src/index.html",
       favicon: "public/favicon.ico",
@@ -68,13 +73,19 @@ module.exports = ({ development }) => ({
   resolve: {
     extensions: [".ts", ".js", ".tsx", ".jsx", ".sass", ".scss"],
     alias: {
+      store: path.resolve(__dirname, "src/store/"),
+      router: path.resolve(__dirname, "src/router/"),
+      modules: path.resolve(__dirname, "src/modules/"),
       pages: path.resolve(__dirname, "src/pages/"),
       components: path.resolve(__dirname, "src/components/"),
+      services: path.resolve(__dirname, "src/services/"),
+      hooks: path.resolve(__dirname, "src/hooks/"),
+      helpers: path.resolve(__dirname, "src/helpers/"),
+      interfaces: path.resolve(__dirname, "src/interfaces/"),
+      config: path.resolve(__dirname, "src/config/"),
+      constants: path.resolve(__dirname, "src/constants/"),
       assets: path.resolve(__dirname, "src/assets/"),
       styles: path.resolve(__dirname, "src/styles/"),
-      constants: path.resolve(__dirname, "src/constants/"),
-      interfaces: path.resolve(__dirname, "src/interfaces/"),
-      router: path.resolve(__dirname, "src/router/"),
     },
   },
   ...devServer(development),

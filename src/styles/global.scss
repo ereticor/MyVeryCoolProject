@@ -5,6 +5,11 @@
   font-family: Roboto, sans-serif;
 }
 
+::selection {
+  background: $color-primary-blue;
+  color: $color-white;
+}
+
 html {
   font-size: $font-size-basic;
 }
@@ -18,7 +23,14 @@ a {
 }
 
 .main {
-  padding: 10px 16px;
+  overflow-y: auto;
+  height: calc(100vh - 70px);
+  padding: $padding-module-app;
   margin-top: $height-app-header;
   margin-left: max(150px, 18%);
+
+  & > * {
+    position: relative;
+    border-radius: 4px;
+  }
 }
