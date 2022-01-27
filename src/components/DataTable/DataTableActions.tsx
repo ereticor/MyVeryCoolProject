@@ -17,7 +17,7 @@ const DataTableActions = ({
   isRowActionsShown = false,
 }: IDataTableActions) => {
   const handleClick = (
-    e: MouseEvent,
+    e: React.MouseEvent,
     action: IDataTableActions["actions"][0]
   ) => {
     e.stopPropagation();
@@ -39,7 +39,7 @@ const DataTableActions = ({
               <IconButton
                 onClick={
                   isRowActionsShown
-                    ? (e) => handleClick(e as unknown as MouseEvent, action)
+                    ? (e) => handleClick(e as React.MouseEvent, action)
                     : undefined
                 }
                 className={cln("action", !isRowActionsShown && "action_hidden")}
