@@ -36,7 +36,12 @@ const DataTableRow = ({
     >
       {headers.map((header, cellIndex) => (
         <TableCell key={`cell: ${"" + data.id + cellIndex || cellIndex}`}>
-          {getDisplayedValue({ data, header })}
+          {getDisplayedValue({
+            data,
+            header,
+            maxLength: 40,
+            isWithTitle: true,
+          })}
         </TableCell>
       ))}
       {rowActions ? (

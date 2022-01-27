@@ -4,7 +4,7 @@ export default [
     isEditable: false,
     text: "created At",
     prop: "createdAt",
-    type: "dateTime",
+    type: "date",
   },
   {
     isEditable: false,
@@ -16,7 +16,7 @@ export default [
     isEditable: false,
     text: "updated At",
     prop: "lastModifiedAt",
-    type: "dateTime",
+    type: "date",
   },
   {
     isEditable: false,
