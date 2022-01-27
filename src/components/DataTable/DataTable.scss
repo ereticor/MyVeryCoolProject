@@ -32,7 +32,9 @@
     }
   }
 
-  .action_hidden {
-    opacity: 0;
+  .action {
+    &_hidden {
+      opacity: 0;
+    }
   }
 }

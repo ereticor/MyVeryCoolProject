@@ -8,6 +8,8 @@ import {
   LibraryAdd,
 } from "@material-ui/icons";
 
+import { cln } from "helpers/cln";
+
 import tableActions from "constants/tableActions";
 
 const CONFIG = {
@@ -87,9 +89,7 @@ const DataTableActions = ({
                     ? (e) => handleClick(e as unknown as MouseEvent, action)
                     : undefined
                 }
-                className={`${
-                  isRowActionsShown ? "action_visible" : "action_hidden"
-                }`}
+                className={cln("action", !isRowActionsShown && "action_hidden")}
               >
                 {config.icon}
               </IconButton>

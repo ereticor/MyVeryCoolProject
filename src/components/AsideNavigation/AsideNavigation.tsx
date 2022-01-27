@@ -1,6 +1,8 @@
 import { NavLink } from "react-router-dom";
 import { Button } from "@material-ui/core";
 
+import { cln } from "helpers/cln";
+
 import { IAppList } from "interfaces/app";
 
 import { StyledAside } from "./style";
@@ -23,7 +25,7 @@ const AsideNavigation = ({ appList }: { appList: IAppList }) => {
           to="/"
           key={`aside: ${-1}`}
           className={({ isActive }) =>
-            `aside__link ${isActive ? "link_active" : ""}`
+            cln("aside__link", isActive && "link_active")
           }
         >
           <Button className="aside__btn">all applications</Button>
@@ -34,7 +36,7 @@ const AsideNavigation = ({ appList }: { appList: IAppList }) => {
               to={`/${app.pathName}`}
               key={`aside: ${index}`}
               className={({ isActive }) =>
-                `aside__link ${isActive ? "link_active" : ""}`
+                cln("aside__link", isActive && "link_active")
               }
             >
               <Button className="aside__btn">{app.name}</Button>

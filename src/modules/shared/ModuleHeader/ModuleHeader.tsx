@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowBack } from "@material-ui/icons";
 
 import "./ModuleHeader.scss";
+import { cln } from "helpers/cln";
 
 interface IModuleHeader {
   title?: string | null;
@@ -21,15 +22,15 @@ const ModuleHeader = ({
   backLink = null,
 }: IModuleHeader) => {
   return (
-    <div className={`module__head ${headClass}`}>
-      <nav className={`module__nav ${headNavClass}`}>
+    <div className={cln("module__head", headClass)}>
+      <nav className={cln("module__nav", headNavClass)}>
         {backLink ? (
           <Link to={backLink}>
             <ArrowBack />
           </Link>
         ) : null}
         {title ? (
-          <h3 className={`module__title ${titleClass}`}>{title}</h3>
+          <h3 className={cln("module__title", titleClass)}>{title}</h3>
         ) : null}
       </nav>
       {children}

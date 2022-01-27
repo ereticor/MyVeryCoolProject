@@ -1,6 +1,8 @@
 import { Drawer, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 
+import { cln } from "helpers/cln";
+
 import IUser from "interfaces/User";
 
 import defaultAvatar from "assets/icons/userDefault.svg";
@@ -37,7 +39,7 @@ const UserProfile = ({
           <img
             src={user.avatar || defaultAvatar}
             alt="user logo"
-            className={`figure__img ${user.avatar ? "" : "default"}`}
+            className={cln("user__avatar", !user.avatar && "default")}
           />
           <figcaption className="figure__cap">{user.name}</figcaption>
         </figure>
