@@ -82,6 +82,7 @@ module.exports = ({ development }) => ({
       hooks: path.resolve(__dirname, "src/hooks/"),
       helpers: path.resolve(__dirname, "src/helpers/"),
       interfaces: path.resolve(__dirname, "src/interfaces/"),
+      config: path.resolve(__dirname, "src/config/"),
       constants: path.resolve(__dirname, "src/constants/"),
       assets: path.resolve(__dirname, "src/assets/"),
       styles: path.resolve(__dirname, "src/styles/"),

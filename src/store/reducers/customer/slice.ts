@@ -10,10 +10,11 @@ import {
 } from "./actionTypes";
 
 import { isAnyOfMatch } from "helpers/isAnyOfMatch";
-import customerHeaders from "helpers/getDisplayedValue/definedHeaders/customerHeaders";
 import { truncObjectByKeys } from "helpers/object";
 
 import ICustomer from "interfaces/Customer";
+
+import { customerHeaders } from "config/table/headers";
 
 const CustomerSlice = createSlice({
   name: "customerState",

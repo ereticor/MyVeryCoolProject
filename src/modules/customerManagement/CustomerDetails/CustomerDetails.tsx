@@ -8,10 +8,11 @@ import FormFooter from "components/FormFooter";
 import ProgressSpinner from "components/ProgressSpinner";
 
 import getDisplayedValue from "helpers/getDisplayedValue";
-import customerHeaders from "helpers/getDisplayedValue/definedHeaders/customerHeaders";
 
 import ICustomer from "interfaces/Customer";
 import { IDeleteCustomer, IGetCustomer } from "interfaces/customer.service";
+
+import { customerHeaders } from "config/table/headers";
 
 import "./CustomerDetails.scss";
 

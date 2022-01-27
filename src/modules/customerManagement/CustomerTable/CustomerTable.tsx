@@ -10,10 +10,10 @@ import ProgressSpinner from "components/ProgressSpinner";
 
 import useDebounce from "hooks/useDebounce";
 
-import customerHeaders from "helpers/getDisplayedValue/definedHeaders/customerHeaders";
-
 import { IDeleteCustomer, IGetCustomerPage } from "interfaces/customer.service";
 import { ICustomerState } from "interfaces/store";
+
+import { customerHeaders } from "config/table/headers";
 
 import "./CustomerTable.scss";
 
