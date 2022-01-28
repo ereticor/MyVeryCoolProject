@@ -115,13 +115,22 @@ const CustomerEdit = ({
         )}
       </CustomerDetailsWrapper>
       <FormFooter
-        cancelHandler={() => {
-          navigate("/customer");
-        }}
-        submitValue={customerData}
-        submitHandler={(value: unknown) =>
-          handleCustomerUpdate(value as Partial<ICustomer>)
-        }
+        buttons={[
+          {
+            text: "cancel",
+            className: "cancel",
+            handler: () => {
+              navigate("/customer");
+            },
+          },
+          {
+            text: "save",
+            className: "save",
+            handler: async () => {
+              handleCustomerUpdate(customerData);
+            },
+          },
+        ]}
       />
     </>
   );
@@ -149,15 +158,22 @@ const CustomerEdit = ({
         )}
       </CustomerDetailsWrapper>
       <FormFooter
-        cancelHandler={() => {
-          navigate("/customer");
-        }}
-        submitValue={customerData}
-        submitHandler={(value: unknown) =>
-          handleCustomerCreate(value as Partial<ICustomer>)
-        }
-        submitBtnText="submit"
-        submitBtnClass="submit"
+        buttons={[
+          {
+            text: "cancel",
+            className: "cancel",
+            handler: () => {
+              navigate("/customer");
+            },
+          },
+          {
+            text: "submit",
+            className: "submit",
+            handler: () => {
+              handleCustomerCreate(customerData);
+            },
+          },
+        ]}
       />
     </>
   );
