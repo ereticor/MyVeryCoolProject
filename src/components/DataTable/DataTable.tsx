@@ -10,6 +10,7 @@ import {
 
 import DataTableRow from "./DataTableRow";
 
+import IFilter from "interfaces/Filter";
 import IAnyDataObject from "interfaces/anyDataObject";
 import ITableHeader from "interfaces/tableHeader";
 
@@ -18,12 +19,12 @@ import "./DataTable.scss";
 interface IDataTable {
   tableData: Array<IAnyDataObject>;
   tableHeaders: Array<ITableHeader>;
-  page: number;
-  pageSize: number;
-  pageSizeOptions?: number[];
+  page: IFilter["page"];
+  pageSize: IFilter["pageSize"];
+  pageSizeOptions?: IFilter["page"][];
   totalCount: number;
-  handlePageChange: (newPage: number) => void;
-  handlePageSizeChange: (newSize: number) => void;
+  handlePageChange: (newPage: IFilter["page"]) => void;
+  handlePageSizeChange: (newSize: IFilter["pageSize"]) => void;
   handleRowClick?: (id: number | string) => void;
   rowActions?: {
     type: string;
@@ -36,7 +37,7 @@ const DataTable = ({
   tableHeaders,
   page,
   pageSize,
-  pageSizeOptions = [10, 20, 30],
+  pageSizeOptions = ["10", "20", "30"],
   totalCount,
   handlePageChange,
   handlePageSizeChange,
@@ -91,11 +92,11 @@ const DataTable = ({
       </div>
       <TableFooter>
         <TablePagination
-          rowsPerPageOptions={pageSizeOptions}
+          rowsPerPageOptions={pageSizeOptions.map((item) => +item)}
           rowsPerPage={+pageSize}
-          onRowsPerPageChange={(e) => handlePageSizeChange(+e.target.value)}
-          page={page - 1}
-          onPageChange={(e, newPage) => handlePageChange(newPage + 1)}
+          onRowsPerPageChange={(e) => handlePageSizeChange(e.target.value)}
+          page={Number(page) - 1}
+          onPageChange={(e, newPage) => handlePageChange(String(newPage + 1))}
           count={totalCount}
         />
       </TableFooter>
