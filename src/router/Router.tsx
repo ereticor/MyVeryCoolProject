@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import CustomerTable from "modules/customerManagement/CustomerTable";
 import CustomerEdit from "modules/customerManagement/CustomerEdit";
@@ -39,10 +39,10 @@ const Router = () => {
             />
             <Route path="/customer/:customerId" element={<CustomerDetails />} />
             <Route path="/customer/" element={<CustomerTable />} />
-            <Route path="/error/:message" element={<ErrorPage />} />
+            <Route path="/error/:errorCode" element={<ErrorPage />} />
             <Route path="/test" element={<TestPage />} />
             <Route path="/" element={<Home appList={appList} />} />
-            <Route path="*" element={<div>Lorem ipsum dolor sit amet.</div>} />
+            <Route path="*" element={<Navigate replace to="/error/404" />} />
           </Routes>
           <AsideNavigation appList={appList} />
         </main>
