@@ -22,9 +22,10 @@ import { customerHeaders } from "config/table/headers";
 import "./CustomerEdit.scss";
 
 interface IResponseError {
-  status: number;
-  errors: {
-    Name: string[];
+  type: string;
+  error: {
+    name: string;
+    message: string;
   };
 }
 interface ICustomerEdit {
@@ -63,24 +64,22 @@ const CustomerEdit = ({
   }, [customerId]);
 
   const handleCustomerCreate = async (newData: Partial<ICustomer>) => {
-    const response = await createCustomer(newData);
-    const err = response as IResponseError;
-    if (err.status > 399) {
-      setErrorMessage(err.errors.Name[0]);
-    } else {
+    const response = (await createCustomer(newData)) as IResponseError;
+    if (response?.error?.name === "Error") {
+      setErrorMessage(response?.error?.message);
+    } else if (errorMessage !== "") {
       setErrorMessage("");
     }
   };
 
   const handleCustomerUpdate = async (newData: Partial<ICustomer>) => {
-    const response = await updateCustomer({
+    const response = (await updateCustomer({
       customerId: customerId || customer.id,
       newData,
-    });
-    const err = response as IResponseError;
-    if (err.status > 399) {
-      setErrorMessage(err.errors.Name[0]);
-    } else {
+    })) as IResponseError;
+    if (response?.error?.name === "Error") {
+      setErrorMessage(response?.error?.message);
+    } else if (errorMessage !== "") {
       setErrorMessage("");
     }
   };
