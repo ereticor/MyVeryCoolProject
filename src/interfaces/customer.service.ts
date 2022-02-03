@@ -12,8 +12,8 @@ export interface IUpdateCustomer {
 }
 
 export interface IGetCustomerPage {
-  page?: number;
-  pageSize?: number;
+  page?: number | string;
+  pageSize?: number | string;
   search?: string;
   includeDeleted?: boolean;
 }

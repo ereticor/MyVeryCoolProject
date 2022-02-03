@@ -80,6 +80,7 @@ module.exports = ({ development }) => ({
       components: path.resolve(__dirname, "src/components/"),
       services: path.resolve(__dirname, "src/services/"),
       hooks: path.resolve(__dirname, "src/hooks/"),
+      classes: path.resolve(__dirname, "src/classes/"),
       helpers: path.resolve(__dirname, "src/helpers/"),
       interfaces: path.resolve(__dirname, "src/interfaces/"),
       config: path.resolve(__dirname, "src/config/"),

@@ -1,64 +1,34 @@
 import { useNavigate } from "react-router-dom";
+import axios, { AxiosError, AxiosRequestConfig } from "axios";
 
 import capitalizeFirstLetter from "helpers/capitalizeFirstLetter";
 
 import { IError, IPostRequest, IRequest } from "interfaces/api.service";
 
-import reqErrors from "constants/reqErrors";
+import errors from "config/errors";
+
 import accessToken from "constants/accessToken";
 
+const baseAPI = axios.create({
+  baseURL: "https://fuchs-platform-api-dev.azurewebsites.net/api/",
+  headers: {
+    "Content-Type": "application/json",
+    authorization: `Bearer ${accessToken}`,
+  },
+});
+
 export default class ApiService {
-  static basicOptions = {
-    headers: new Headers({
-      "Content-type": "application/json",
-      authorization: `Bearer ${accessToken}`,
-    }),
-  };
-
-  static baseUrl = "https://fuchs-platform-api-dev.azurewebsites.net/api/";
-
   static async request({ api, options }: IRequest) {
     try {
-      const response = await fetch(this.baseUrl + api, {
-        ...this.basicOptions,
-        ...options,
+      const response = await baseAPI.request({
+        url: api,
+        ...(options as AxiosRequestConfig),
+        data: options.body,
       });
 
-      if (!response.ok) {
-        throw response;
-      }
-
-      const result = await response.json();
-      return result;
+      return response.data;
     } catch (err: IError) {
-      if (err instanceof Response) {
-        switch (err.status) {
-          case 400: {
-            const parsedError = await err.json();
-            return Promise.reject(parsedError);
-          }
-          case 401:
-            window.location.reload();
-            break;
-          case 403:
-            this.redirectToErrorPage(reqErrors.ACCESS_FORBIDDEN);
-            break;
-          case 404:
-            this.redirectToErrorPage(reqErrors.NOT_FOUND);
-            break;
-          case 500:
-          case 501:
-          case 502:
-          case 503:
-          case 504:
-          case 505:
-            // this.redirectToErrorPage(reqErrors.SERVER_TROUBLE);
-            break;
-          default:
-            // this.redirectToErrorPage(reqErrors.UNEXPECTED + err.status);
-            break;
-        }
-      }
+      return Promise.reject(err);
     }
   }
 
@@ -108,3 +78,56 @@ export default class ApiService {
     return result.join("&");
   }
 }
+
+baseAPI.interceptors.response.use(
+  (response) => response,
+  (error: AxiosError) => {
+    const response = error.response;
+    const canceledRequest = error.config;
+
+    if (response && response.status) {
+      switch (response.status) {
+        case 400: {
+          return Promise.reject({
+            name: "Error",
+            message:
+              response.data?.errors?.Name[0] || "something wrong with data",
+          });
+        }
+        case 401:
+          if ((canceledRequest as Record<string, unknown>)._isOriginal) break;
+
+          (canceledRequest as Record<string, unknown>)._isOriginal = true;
+
+          if (
+            canceledRequest.headers &&
+            canceledRequest.headers.authorization !== `Bearer ${accessToken}`
+          ) {
+            return baseAPI(canceledRequest);
+          }
+
+          ApiService.redirectToErrorPage(errors.ACCESS_FORBIDDEN.code);
+          // !there should be some token cleaner
+          // window.location.reload();
+          break;
+        case 403:
+          ApiService.redirectToErrorPage(errors.ACCESS_FORBIDDEN.code);
+          break;
+        case 404:
+          ApiService.redirectToErrorPage(errors.NOT_FOUND.code);
+          break;
+        case 500:
+        case 501:
+        case 502:
+        case 503:
+        case 504:
+        case 505:
+          ApiService.redirectToErrorPage(errors.SERVER_TROUBLE.code);
+          break;
+        default:
+          ApiService.redirectToErrorPage(errors.UNEXPECTED.code);
+          break;
+      }
+    }
+  }
+);

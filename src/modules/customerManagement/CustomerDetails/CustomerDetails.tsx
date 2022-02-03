@@ -62,14 +62,23 @@ const CustomerDetails = ({
         ))}
       </CustomerDetailsWrapper>
       <FormFooter
-        cancelHandler={() => deleteCustomer(customer.id)}
-        cancelBtnText="delete"
-        cancelBtnClass="delete"
-        submitHandler={() => {
-          navigate(`/customer/${customer.id}/edit`);
-        }}
-        submitBtnText="edit"
-        submitBtnClass="edit"
+        buttons={[
+          {
+            handler: async () => {
+              await deleteCustomer(customer.id);
+              navigate("/customer");
+            },
+            text: "delete",
+            className: "delete",
+          },
+          {
+            handler: () => {
+              navigate(`/customer/${customer.id}/edit`);
+            },
+            text: "edit",
+            className: "edit",
+          },
+        ]}
       />
     </>
   );

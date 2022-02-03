@@ -5,6 +5,7 @@
   height: 100%;
   display: grid;
   place-items: center;
+  padding-bottom: 10%;
 
   .error__container {
     display: flex;
@@ -13,22 +14,23 @@
     gap: 15px;
     text-align: center;
 
+    .error__head {
+      font-size: 2rem;
+      text-transform: uppercase;
+    }
+
     .error__image {
       width: 60%;
-      aspect-ratio: 1.5;
+      max-height: 200px;
+      min-height: 100px;
       border-radius: 5px;
-      object-position: bottom;
-      object-fit: cover;
+      object-fit: contain;
     }
 
     .error__details {
       font-size: 20px;
 
       .error__message {
-        font-size: 1.4em;
-      }
-
-      .error__reason {
         font-weight: bold;
         font-size: 1.2em;
         text-transform: uppercase;
@@ -37,7 +39,8 @@
     }
 
     .error__return {
-      background: $color-secondary-red;
+      background: $color-primary-blue;
+      font-size: 20px;
       color: $color-white;
       opacity: 0.8;
 
